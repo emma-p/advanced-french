@@ -1,3 +1,7 @@
 %h1 Plateforme d'apprentissage
 %p Progressez rapidement en français
-%a{ :href => '/learning_materials/material_example1' }Material example 1
+- learning_materials = ['mots_a_ne_pas_confondre', 'conditionnel', 'accents', 'adverbes', 'courriels'] 
+- learning_materials.each do |material_name|
+  %p
+  %a{ :href => "/learning_materials/#{material_name}" } #{material_name.capitalize}
+
