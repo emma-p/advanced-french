@@ -1,7 +1,8 @@
-%h1 Plateforme d'apprentissage
-%p Progressez rapidement en français
+%h1 Bienvenue!
+.well Découvrez une série de leçons et d'exercices pour progresser en français.
+%h2 Leçons disponibles 
 - learning_materials = ['mots_a_ne_pas_confondre', 'conditionnel', 'accents', 'adverbes', 'courriels'] 
 - learning_materials.each do |material_name|
   %p
-  %a{ :href => "/learning_materials/#{material_name}" } #{material_name.capitalize}
+  %a{ :href => "/learning_materials/#{material_name}" } #{material_name}
 
