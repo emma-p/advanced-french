@@ -1,11 +1,18 @@
 require 'sinatra'
-require 'active_support/inflector'
-require 'active_support/core_ext'
+require 'active_support/all'
 
 get '/' do
   haml :index
 end
 
-get '/learning_materials/:material_name' do
-  haml params[:material_name].to_sym
+get '/lessons' do
+  haml :lessons
+end
+
+get '/lessons/:lesson_name' do
+  haml params[:lesson_name].to_sym
+end
+
+get '/exercises' do
+  haml :exercises
 end

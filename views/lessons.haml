@@ -1,0 +1,5 @@
+%h2 Leçons disponibles 
+- learning_materials = ['Mots à ne pas confondre', 'Conditionnel', 'Accents', 'Adverbes', 'Courriels'] 
+- learning_materials.sort.each do |material_name|
+  %p
+  %a{ :href => "/lessons/#{material_name.parameterize}" } #{material_name}
