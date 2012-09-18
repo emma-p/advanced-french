@@ -1,4 +1,4 @@
-require_relative 'learning_platform'
+require_relative '../../learning_platform'
 require 'test/unit'
 require 'rack/test'
 ENV['RACK_ENV'] = 'test'
