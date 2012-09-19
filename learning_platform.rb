@@ -2,18 +2,18 @@
 
 require 'sinatra'
 require 'active_support/all'
+require_relative 'lessons'
 
 get '/' do
   haml :index
 end
 
 get '/lessons' do
-  @lessons = { Grammaire: ['Adverbes', 'Conditionnel'], Orthographe: ['Accents', 'Mots à ne pas confondre', 'Courriels']}
   haml :lessons 
 end
 
 get '/lessons/:lesson_name' do
-  haml params[:lesson_name].to_sym
+  haml "lessons-folder/#{params[:lesson_name]}".to_sym
 end
 
 get '/exercises' do
