@@ -1,3 +1,5 @@
+#encoding:utf-8
+
 require 'sinatra'
 require 'active_support/all'
 
@@ -6,7 +8,8 @@ get '/' do
 end
 
 get '/lessons' do
-  haml :lessons
+  @lessons = { Grammaire: ['Adverbes', 'Conditionnel'], Orthographe: ['Accents', 'Mots à ne pas confondre', 'Courriels']}
+  haml :lessons 
 end
 
 get '/lessons/:lesson_name' do
