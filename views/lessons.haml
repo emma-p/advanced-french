@@ -1,5 +1,7 @@
 %h2 Leçons disponibles 
-- learning_materials = ['Mots à ne pas confondre', 'Conditionnel', 'Accents', 'Adverbes', 'Courriels'] 
-- learning_materials.sort.each do |material_name|
-  %p
-  %a{ :href => "/lessons/#{material_name.parameterize}" } #{material_name}
+- learning_materials_cat = { Grammaire: ['Conditionnel', 'Adverbes'], Orthographe: ['Accents', 'Mots à ne pas confondre', 'Courriels']}
+- learning_materials_cat.each do |category, lessons|
+  %h3 #{category}
+  - lessons.sort.each do |lesson|
+    %p
+    %a{ :href => "/lessons/#{lesson.parameterize}" } #{lesson}
