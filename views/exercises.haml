@@ -4,5 +4,7 @@
   Le chat mange des
   %input{type: "text", name: "answer1"}
   %input{ type: "submit" } 
-
-
+- if @answer1 == "rats"
+  Correct
+- elsif @answer1 and @answer1 != "rats"
+  Faux - Bonne réponse : rats

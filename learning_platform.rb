@@ -21,9 +21,6 @@ get '/exercises' do
 end
 
 post '/exercises' do
-  if request["answer1"] == "rats"
-    "Vous avez donné la bonne réponse!"
-  else
-    "Désolé, la bonne réponse était rats."
-  end
+  @answer1 = request["answer1"]
+  haml :exercises
 end
