@@ -3,6 +3,7 @@
 require 'sinatra'
 require 'active_support/all'
 require_relative 'lessons'
+require_relative 'exercises'
 
 get '/' do
   haml :index
@@ -21,6 +22,5 @@ get '/exercises' do
 end
 
 post '/exercises' do
-  @answer1 = request["answer1"]
   haml :exercises
 end
