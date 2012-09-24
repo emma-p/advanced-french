@@ -1,7 +1,6 @@
 %h2 Leçons disponibles 
-- learning_materials_cat = { Grammaire: ['Conditionnel', 'Adverbes'], Orthographe: ['Accents', 'Mots à ne pas confondre', 'Courriels']}
-- learning_materials_cat.each do |category, lessons|
+- LessonManifest::LESSONS.each do |category, related_lessons|
   %h3 #{category}
-  - lessons.sort.each do |lesson|
+  - related_lessons.each do |lesson|
     %p
     %a{ :href => "/lessons/#{lesson.parameterize}" } #{lesson}

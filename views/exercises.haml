@@ -1,2 +1,13 @@
 %h1 Exercices
-.well Découvrez prochainement une série d'exercices pour vous aider à progresser.
+%form{method: "post"} 
+  - ExercisesManifest::EXERCISES.each do |question_number, content|
+    - content.each do |question, answer|
+      %p #{question}
+      - answer_in_input = request[question_number] ? answer : ""
+      %input{type: "text", name: question_number, value: answer_in_input}
+      - if request[question_number] == answer 
+        Correct
+      - elsif request[question_number] && request[question_number] != answer
+        Faux 
+      - else
+  %input{type: "submit" } 
