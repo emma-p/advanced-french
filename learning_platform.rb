@@ -2,8 +2,11 @@
 
 require 'sinatra'
 require 'active_support/all'
+require 'json'
 require_relative 'lessons'
 require_relative 'exercises'
+
+enable :sessions
 
 get '/' do
   haml :index
@@ -18,9 +21,14 @@ get '/lessons/:lesson_name' do
 end
 
 get '/exercises' do
+  @exercises = ExercisesManifest::EXERCISES
   haml :exercises
 end
 
 post '/exercises' do
-  haml :exercises
+  @exercises_keys = ExercisesManifest::EXERCISES.keys
+  @exercises_keys.each do |question|
+    session[question] = request[question]
+  end
+  redirect to('/exercises')
 end

@@ -1,13 +1,13 @@
 %h2 Exercices
 %form{method: "post"} 
-  - ExercisesManifest::EXERCISES.each do |question_number, content|
+  - @exercises.each do |question_number, content|
     - content.each do |question, answer|
       %p #{question}
-      - answer_in_input = request[question_number] ? answer : ""
+      - answer_in_input = session[question_number] == answer ? answer : ""
       %input{type: "text", name: question_number, value: answer_in_input}
-      - if request[question_number] == answer 
+      - if session[question_number] == answer 
         Correct
-      - elsif request[question_number] && request[question_number] != answer
+      - elsif session[question_number] && session[question_number] != answer
         Faux 
       - else
   %input{type: "submit" } 
