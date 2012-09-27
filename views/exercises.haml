@@ -1,4 +1,5 @@
 %h2 Exercices
+%p #{@output}
 %form{method: "post"} 
   - @exercises.each do |question_number, content|
     - content.each do |question, answer|
