@@ -4,7 +4,6 @@ require 'sinatra'
 require 'active_support/all'
 require 'json'
 require_relative 'lessons'
-require_relative 'exercises'
 
 enable :sessions
 
@@ -21,16 +20,27 @@ get '/lessons/:lesson_name' do
 end
 
 get '/exercises' do
-  @exercises = ExercisesManifest::EXERCISES
-  exercise_file = File.read('exercises_data/verbes_1g.json')
-  @output = JSON.parse(exercise_file)
+  exercises_file_paths = Dir.glob('exercises_data/*.json')
+  @exercises = exercises_file_paths.map do |f|
+    result = File.read f
+    JSON.parse(result)["title"]
+  end
   haml :exercises
 end
 
-post '/exercises' do
-  @exercises_keys = ExercisesManifest::EXERCISES.keys
-  @exercises_keys.each do |question|
+get '/exercises/:exercise_name' do
+  exercise_file = File.read("exercises_data/#{params[:exercise_name]}.json")
+  @exercise_content = JSON.parse(exercise_file)
+  @questions = @exercise_content["questions"]
+  haml :exercise
+end
+
+post '/exercises/:exercise_name' do
+  exercise_file = File.read("exercises_data/#{params[:exercise_name]}.json")
+  @exercise_content = JSON.parse(exercise_file)
+  @questions = @exercise_content["questions"]
+  @questions.each do |question, data|
     session[question] = request[question]
   end
-  redirect to('/exercises')
+  redirect to("/exercises/#{params[:exercise_name]}")
 end

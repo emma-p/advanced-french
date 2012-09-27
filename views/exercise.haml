@@ -1,0 +1,11 @@
+%form{method: "post"} 
+  - @questions.each do |question_number, data|
+    %p #{data["content"]}
+    - answer_in_input = session[question_number] == data["answer"] ? data["answer"] : ""
+    %input{type: "text", name: question_number, value: answer_in_input}
+    - if session[question_number] == data["answer "]
+      Correct
+    - elsif session[question_number] && session[question_number] != data["answer"]
+      Faux 
+    - else
+  %input{type: "submit"}

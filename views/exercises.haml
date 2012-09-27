@@ -1,14 +1,4 @@
 %h2 Exercices
-%p #{@output}
-%form{method: "post"} 
-  - @exercises.each do |question_number, content|
-    - content.each do |question, answer|
-      %p #{question}
-      - answer_in_input = session[question_number] == answer ? answer : ""
-      %input{type: "text", name: question_number, value: answer_in_input}
-      - if session[question_number] == answer 
-        Correct
-      - elsif session[question_number] && session[question_number] != answer
-        Faux 
-      - else
-  %input{type: "submit" } 
+- @exercises.each do |e|
+  %p 
+    %a{:href => "exercises/#{e.parameterize}"}#{e}
