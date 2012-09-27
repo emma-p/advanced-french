@@ -22,7 +22,7 @@ end
 
 get '/exercises' do
   @exercises = ExercisesManifest::EXERCISES
-  exercise_file = File.read('exercises_content.json')
+  exercise_file = File.read('exercises_data/verbes_1g.json')
   @output = JSON.parse(exercise_file)
   haml :exercises
 end
