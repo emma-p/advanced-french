@@ -5,7 +5,7 @@ ENV['RACK_ENV'] = 'test'
 
 class Test::Unit::TestCase
   include Rack::Test::Methods
-  end
+end
 
 def app
   Sinatra::Application
