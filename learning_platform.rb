@@ -3,6 +3,7 @@
 require 'sinatra'
 require 'active_support/all'
 require 'json'
+require_relative 'lesson.rb'
 
 enable :sessions
 
