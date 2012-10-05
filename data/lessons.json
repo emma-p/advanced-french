@@ -1,9 +1,22 @@
-#encoding:utf-8
-module LessonManifest
-  LESSONS = 
-   { 
-    'Grammaire' => ['Adverbes', 'Conditionnel'], 
-    'Orthographe'=> ['Accents', 'Mots à ne pas confondre'],
-    'Rédaction' => ['Courriels']
-    }
-end
+[ 
+  {
+    "title": "Adverbes",
+    "category": "Grammaire"
+  },
+  {
+    "title": "Conditionnel",
+    "category": "Grammaire"
+  },
+  {
+    "title": "Accents",
+    "category": "Orthographe"
+  },
+  {
+    "title": "Mots à ne pas confondre",
+    "category": "Orthographe"
+  },
+  {
+    "title": "Courriels",
+    "category": "Rédaction"
+  }
+]

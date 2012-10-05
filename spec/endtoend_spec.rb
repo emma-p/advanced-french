@@ -1,37 +1,55 @@
-require_relative '../../learning_platform'
-require 'test/unit'
-require 'rack/test'
-ENV['RACK_ENV'] = 'test'
+require_relative '../learning_platform'
+require_relative 'spec_helper'
 
-class Test::Unit::TestCase
-  include Rack::Test::Methods
-end
+include Rack::Test::Methods
+include IntegrationHelper
 
 def app
   Sinatra::Application
 end
 
-class LearningPlatformIndexTest < Test::Unit::TestCase
-
-  def test_it_loads_the_index
+describe 'home page' do
+  it 'loads the index' do
     get '/'
-    assert last_response.ok?
+    last_response.should be_ok
   end
 end
 
-class LearningPlatformLessonsPageTest < Test::Unit::TestCase
+describe 'lessons page' do
+  it 'displays the lessons as specified in the JSON file' do
+    lesson_categories = parse_lesson_file
+    get '/lessons'
+    last_response.should be_ok
 
-  def test_it_loads_the_lessons_page
-    get '/lessons' 
-    assert last_response.ok?
+    lesson_categories.each do |category, lessons|
+      last_response.body.include?(category).should be_true
+      lessons.each do |lesson|
+        page.should contain lesson
+      end
+    end
   end
 end
-
-class LearningPlatformExercisesPageTest < Test::Unit::TestCase
-
-  def test_it_loads_the_exercises_page
-    get '/exercises' 
-    assert last_response.ok?
-    assert last_response.body.include?('Exercices')
-  end
-end
+# class LearningPlatformIndexTest < Test::Unit::TestCase
+# 
+#   def test_it_loads_the_index
+#     get '/'
+#     assert last_response.ok?
+#   end
+# end
+# 
+# class LearningPlatformLessonsPageTest < Test::Unit::TestCase
+# 
+#   def test_it_loads_the_lessons_page
+#     get '/lessons' 
+#     assert last_response.ok?
+#   end
+# end
+# 
+# class LearningPlatformExercisesPageTest < Test::Unit::TestCase
+# 
+#   def test_it_loads_the_exercises_page
+#     get '/exercises' 
+#     assert last_response.ok?
+#     assert last_response.body.include?('Exercices')
+#   end
+# end
