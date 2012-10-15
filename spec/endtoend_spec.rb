@@ -2,7 +2,6 @@ require_relative '../learning_platform'
 require_relative 'spec_helper'
 
 include Rack::Test::Methods
-include IntegrationHelper
 
 def app
   Sinatra::Application
@@ -17,15 +16,12 @@ end
 
 describe 'lessons page' do
   it 'displays the lessons as specified in the JSON file' do
-    lesson_categories = parse_lesson_file
+    lesson_categories = Lesson.parse_lesson_file
     get '/lessons'
     last_response.should be_ok
 
-    lesson_categories.each do |category, lessons|
-      last_response.body.include?(category).should be_true
-      lessons.each do |lesson|
-        page.should contain lesson
-      end
+    lesson_categories.each do |lesson_info|
+      last_response.body.should include lesson_info["title"]
     end
   end
 end

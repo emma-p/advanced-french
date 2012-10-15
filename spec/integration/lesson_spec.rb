@@ -1,4 +1,3 @@
-require_relative '../spec_helper'
 require_relative '../../lesson.rb'
 
 describe Lesson do
@@ -8,6 +7,7 @@ describe Lesson do
       lessons.size.should be > 0
       lesson = lessons[0]
       lesson.class.should be Lesson
+      lessons.map(&:title).should include Lesson.parse_lesson_file.sample["title"]
     end
   end
 end
