@@ -1,5 +1,6 @@
 require_relative '../learning_platform'
 require_relative 'spec_helper'
+require_relative '../lesson.rb'
 
 include Rack::Test::Methods
 
@@ -15,32 +16,37 @@ describe 'home page' do
 end
 
 describe 'lessons page' do
-  it 'displays the lessons as specified in the JSON file' do
-    lesson_categories = Lesson.parse_lesson_file
+  let(:lessons_list) { Lesson.parse_lesson_file }
+
+  before do 
     get '/lessons'
     last_response.should be_ok
+  end
 
-    lesson_categories.each do |lesson_info|
+  it 'displays all the lessons specified in the JSON file' do
+
+    lessons_list.each do |lesson_info|
       last_response.body.should include lesson_info["title"]
     end
   end
+
+  it 'displays the lessons sorted by category' do
+    lessons_list.each do |lesson_info|
+      last_response.body.should include lesson_info["category"]
+    end
+  end
 end
-# class LearningPlatformIndexTest < Test::Unit::TestCase
-# 
-#   def test_it_loads_the_index
-#     get '/'
-#     assert last_response.ok?
-#   end
-# end
-# 
-# class LearningPlatformLessonsPageTest < Test::Unit::TestCase
-# 
-#   def test_it_loads_the_lessons_page
-#     get '/lessons' 
-#     assert last_response.ok?
-#   end
-# end
-# 
+
+describe 'lesson page' do
+  it 'displays the specific lesson required in the lessons page' do
+    lessons = Lesson.get_lessons_from_files
+    lessons.each do |lesson|
+      get "/lessons/#{lesson.title.parameterize}"
+      last_response.body.should include lesson.title
+    end
+  end
+end
+
 # class LearningPlatformExercisesPageTest < Test::Unit::TestCase
 # 
 #   def test_it_loads_the_exercises_page
