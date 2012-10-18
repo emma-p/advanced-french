@@ -5,7 +5,7 @@ require 'active_support/all'
 require 'json'
 require 'pry'
 require_relative 'lesson.rb'
-
+require_relative 'exercise.rb'
 enable :sessions
 
 get '/' do
@@ -22,11 +22,7 @@ get '/lessons/:lesson_name' do
 end
 
 get '/exercises' do
-  exercises_file_paths = Dir.glob('data/exercises/*.json')
-  @exercises = exercises_file_paths.map do |f|
-    result = File.read f
-    JSON.parse(result)["title"]
-  end
+  @exercises = Exercise.get_exercises_from_files
   haml :exercises
 end
 

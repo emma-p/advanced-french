@@ -1,6 +1,7 @@
 require_relative '../learning_platform'
 require_relative 'spec_helper'
 require_relative '../lesson.rb'
+require_relative '../exercise.rb'
 
 include Rack::Test::Methods
 
@@ -16,7 +17,7 @@ describe 'home page' do
 end
 
 describe 'lessons page' do
-  let(:lessons_list) { Lesson.parse_lesson_file }
+  let(:lessons_list) { Lesson.get_lessons_from_files }
 
   before do 
     get '/lessons'
@@ -24,15 +25,14 @@ describe 'lessons page' do
   end
 
   it 'displays all the lessons specified in the JSON file' do
-
-    lessons_list.each do |lesson_info|
-      last_response.body.should include lesson_info["title"]
+    lessons_list.each do |lesson|
+      last_response.body.should include lesson.title
     end
   end
 
   it 'displays the lessons sorted by category' do
-    lessons_list.each do |lesson_info|
-      last_response.body.should include lesson_info["category"]
+    lessons_list.each do |lesson|
+      last_response.body.should include lesson.category
     end
   end
 end
@@ -47,11 +47,14 @@ describe 'lesson page' do
   end
 end
 
-# class LearningPlatformExercisesPageTest < Test::Unit::TestCase
-# 
-#   def test_it_loads_the_exercises_page
-#     get '/exercises' 
-#     assert last_response.ok?
-#     assert last_response.body.include?('Exercices')
-#   end
-# end
+describe 'exercises page' do
+  let(:exercises_list) { Exercise.get_exercises_from_files }
+
+  it 'displays all the exercises specified in the JSON file' do
+    get '/exercises' 
+    last_response.should be_ok
+    exercises_list.each do |exercise|
+      last_response.body.should include exercise.title
+    end
+  end
+end
