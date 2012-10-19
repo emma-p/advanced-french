@@ -2,4 +2,5 @@
 - @exercises.each do |e|
   %p 
     %a{:href => "exercises/#{e.title.parameterize}"}#{e.title}
-    #{e.questions}
+= @exercises.inspect
+

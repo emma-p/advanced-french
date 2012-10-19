@@ -30,11 +30,7 @@ describe 'lessons page' do
     end
   end
 
-  it 'displays the lessons sorted by category' do
-    lessons_list.each do |lesson|
-      last_response.body.should include lesson.category
-    end
-  end
+  it 'displays the lessons sorted by category'
 end
 
 describe 'lesson page' do
@@ -57,4 +53,16 @@ describe 'exercises page' do
       last_response.body.should include exercise.title
     end
   end
+end
+
+describe 'exercise page' do
+  let(:exercises) {Exercise.get_exercises_from_files}
+
+  it 'displays the specific exercise required in the exercises page' do
+    exercises.each do |exercise|
+      get "exercises/#{exercise.title.parameterize}"  
+      last_response.body.should include exercise.questions["question1"]["content"]
+    end
+  end
+
 end

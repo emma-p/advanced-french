@@ -27,9 +27,10 @@ get '/exercises' do
 end
 
 get '/exercises/:exercise_name' do
-  exercise_file = File.read("data/exercises/#{params[:exercise_name]}.json")
-  @exercise_content = JSON.parse(exercise_file)
-  @questions = @exercise_content["questions"]
+  #exercise_file = File.read("data/exercises/#{params[:exercise_name]}.json")
+  #@exercise_content = JSON.parse(exercise_file)
+  #@questions = @exercise_content["questions"]
+  @exercise = Exercise.new params[:exercise_name]
   haml :exercise
 end
 
