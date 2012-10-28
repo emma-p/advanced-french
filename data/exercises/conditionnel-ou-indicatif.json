@@ -1,55 +1,65 @@
 { "title": "Conditionnel ou indicatif?",
   "questions":
-  { 
-    "question1": {
+  [ 
+    {
+      "question_number": "question1",
       "content": "Marianne a affirmé qu'elle viendrait une fois qu'elle __ de classer ses papiers.", 
       "answer": "aurait fini", 
       "hint": "finir"
     }, 
-    "question2": {
+    {
+      "question_number": "question2",
       "content": "Est-ce qu'il t'a dit que tu __ la réponse avant lundi?", 
       "answer": "aurais", 
       "hint": "avoir"
     }, 
-    "question3": {
+    {
+      "question_number": "question3",
       "content": "Vous __ si vous pourrez assister à la présentation demain.", 
       "answer": "verrez", 
       "hint": "voir"
     }, 
-    "question4": {
+    {
+      "question_number": "question4",
       "content": "Je __ avoir plus d'nformations sur vos prestations.", 
       "answer": "souhaiterais", 
       "hint": "souhaiter"
     }, 
-    "question5": {
+    {
+      "question_number": "question5",
       "content": "Il m'a dit qu'il __ là demain.", 
       "answer": "serait", 
       "hint": "être"
     }, 
-    "question6": {
+    {
+      "question_number": "question6",
       "content": "J'__ plus de temps après mon examen.", 
       "answer": "aurai", 
       "hint": "avoir"
     }, 
-    "question7": {
+    {
+      "question_number": "question7",
       "content": "Je pense que j'y __ sans aide.", 
       "answer": "arriverai", 
       "hint": "arriver"
     }, 
-    "question8": {
+    {
+      "question_number": "question8",
       "content": "Pardonne-moi d'insister, mais j' __ vraiment me rendre utile.", 
       "answer": "aimerais", 
       "hint": "aimer"
     }, 
-    "question9": {
+    {
+      "question_number": "question9",
       "content": "Ils m'ont dit qu'ils __ là au moment où la catastrophe a eu lieu.", 
       "answer": "étaient", 
       "hint": "être"
     }, 
-    "question10": {
+    {
+      "question_number": "question10",
       "content": "Nous serons tous soulagés lorsqu'il __ enfin être indépendant.", 
       "answer": "pourra", 
       "hint": "pouvoir"
     }
-  }
+  ]
 }
