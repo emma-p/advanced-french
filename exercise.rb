@@ -1,3 +1,5 @@
+require_relative 'question.rb'
+
 class Exercise
   attr_accessor :title, :questions
 
@@ -8,6 +10,9 @@ class Exercise
     exercise_content = JSON.parse(exercise_file)
     @title = exercise_content["title"]
     @questions = exercise_content["questions"]
+    @questions.each do |question|
+      Question.new @title, question["question_number"]
+    end
   end
 
   def self.get_exercises_from_files
@@ -17,13 +22,5 @@ class Exercise
       Exercise.new title
     end
   end
-
-  
 end
 
-class Question
-  attr_reader :content, :hint, :answer
-
-  def initialize 
-  end
-end

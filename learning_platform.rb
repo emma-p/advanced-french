@@ -6,6 +6,7 @@ require 'json'
 require 'pry'
 require_relative 'lesson.rb'
 require_relative 'exercise.rb'
+require_relative 'lib/categories_fetcher'
 enable :sessions
 
 get '/' do
@@ -13,7 +14,7 @@ get '/' do
 end
 
 get '/lessons' do
-  @lessons = Lesson.get_lessons_from_files
+  @categories = CategoriesFetcher.new.get_categories
   haml :lessons 
 end
 
@@ -26,11 +27,8 @@ get '/exercises' do
   haml :exercises
 end
 
-get '/exercises/:exercise_name' do
-  #exercise_file = File.read("data/exercises/#{params[:exercise_name]}.json")
-  #@exercise_content = JSON.parse(exercise_file)
-  #@questions = @exercise_content["questions"]
-  @exercise = Exercise.new params[:exercise_name]
+get '/exercises/:exercise_title' do
+  @exercise = Exercise.new params[:exercise_title]
   haml :exercise
 end
 
