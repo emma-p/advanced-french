@@ -4,8 +4,8 @@ require 'sinatra'
 require 'active_support/all'
 require 'json'
 require 'pry'
-require_relative 'lesson.rb'
-require_relative 'exercise.rb'
+require_relative 'lib/lesson.rb'
+require_relative 'lib/exercise.rb'
 require_relative 'lib/categories_fetcher'
 enable :sessions
 

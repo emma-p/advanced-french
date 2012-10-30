@@ -1,4 +1,6 @@
 %h2 Leçons disponibles 
-- @lessons.each do |lesson|
-  %p
-    %a{ :href => "/lessons/#{lesson.title.parameterize}" }= lesson.title
+- @categories.each do |category|
+  %h3= category.name
+  - category.lessons.each do |lesson|
+    %p
+      %a{ :href => "/lessons/#{lesson.title.parameterize}" }= lesson.title

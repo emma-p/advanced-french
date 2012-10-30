@@ -1,6 +1,6 @@
 require_relative 'parser_module.rb'
-require_relative '../category.rb'
-require_relative '../lesson.rb'
+require_relative 'category.rb'
+require_relative 'lesson.rb'
 
 #CategoriesFetcher is a class which only goal is to get a list of the categories from the Lessons JSON file and give them to Sinatra.
 

@@ -1,3 +1,4 @@
+#this spec tests the #get_categories method of the CategorieFetcher class. It makes sure the method can access data from a JSON file, use it to create Category and Lesson objects, and pass these on to Sinatra.
 require 'categories_fetcher'
 require 'spec_helper'
 
