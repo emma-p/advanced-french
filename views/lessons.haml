@@ -3,4 +3,4 @@
   %h3= category.name
   - category.lessons.each do |lesson|
     %p
-      %a{ :href => "/lessons/#{lesson.title.parameterize}" }= lesson.title
+      %a{ :href => lesson.url}= lesson.title

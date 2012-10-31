@@ -1,5 +1,5 @@
 %h2 Exercices
-- @exercises.each do |e|
+- @exercises.each do |exercise|
   %p 
-    %a{:href => "exercises/#{e.title.parameterize}"}#{e.title}
+    %a{:href => exercise.url}= exercise.title
 

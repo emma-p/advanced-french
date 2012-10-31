@@ -7,6 +7,7 @@ require 'pry'
 require_relative 'lib/lesson.rb'
 require_relative 'lib/exercise.rb'
 require_relative 'lib/categories_fetcher'
+require_relative 'lib/exercises_fetcher'
 enable :sessions
 
 get '/' do
@@ -23,12 +24,13 @@ get '/lessons/:lesson_name' do
 end
 
 get '/exercises' do
-  @exercises = Exercise.get_exercises_from_files
+  @exercises = ExercisesFetcher.new.get_exercises_from_files
   haml :exercises
 end
 
 get '/exercises/:exercise_title' do
   @exercise = Exercise.new params[:exercise_title]
+  @questions = @exercise.questions
   haml :exercise
 end
 

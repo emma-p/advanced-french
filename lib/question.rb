@@ -1,10 +1,4 @@
-class Question
-  attr_accessor :exercise_title, :question_number
-
-  def initialize exercise_title, question_number
-    @exercise_title = exercise_title
-    @question_number = question_number
-  end
+class Question < Struct.new(:exercise_title, :question_number, :content, :answer, :hint)
 
   def display_content
   end

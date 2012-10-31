@@ -1,5 +1,6 @@
-%p #{@exercise.title}
-
+%h1 #{@exercise.title}
+- @questions.each do |question|
+  %p= question.content
 -#%form{method: "post"} 
 -#  - @questions.each do |question_number, data|
 -#    %p #{data["content"]}
