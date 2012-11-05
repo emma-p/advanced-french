@@ -15,4 +15,8 @@ class ExercisesFetcher
       Exercise.new title, questions
     end
   end
+
+  def find_exercise name
+    get_exercises_from_files.find { |exercise| exercise.name == name }
+  end
 end

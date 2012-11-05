@@ -1,8 +1,7 @@
 %h1 #{@exercise.title}
 %form{method: "post"}
   - @questions.each do |question|
-    %p #{question.content} (#{question.hint})
     - user_answer_number = "user_answer_#{question.question_number}"
     - user_answer = session[user_answer_number] == question.answer ? question.answer : ""
-    %input{type: "form", name: user_answer_number, value: user_answer}
+    %p #{question.content.gsub('__', "<input type='form', name='#{user_answer_number}', value= '#{user_answer}'></input>")} (#{bold(question.hint)})
   %input{type: "submit"}

@@ -8,7 +8,10 @@ require_relative 'lib/lesson.rb'
 require_relative 'lib/exercise.rb'
 require_relative 'lib/categories_fetcher'
 require_relative 'lib/exercises_fetcher'
+require_relative 'views/helpers/exercise_helper'
 enable :sessions
+
+helpers ViewHelper
 
 get '/' do
   haml :index
@@ -29,18 +32,15 @@ get '/exercises' do
 end
 
 get '/exercises/:exercise_title' do
-  all_exercises = ExercisesFetcher.new.get_exercises_from_files
-  @exercise = all_exercises.find { |exercise| exercise.name == params[:exercise_title] }
+  @exercise = ExercisesFetcher.new.find_exercise params[:exercise_title]
   @questions = @exercise.questions
   haml :exercise
 end
 
 post '/exercises/:exercise_title' do
-  all_exercises = ExercisesFetcher.new.get_exercises_from_files
-  @exercise = all_exercises.find { |exercise| exercise.name == params[:exercise_title] }
+  @exercise = ExercisesFetcher.new.find_exercise params[:exercise_title]
   @questions = @exercise.questions
-  @questions.each do |question|
-    session["user_answer_#{question.question_number}"] = request["user_answer_#{question.question_number}"] 
-  end
+  answers = params.select{|k,v| k =~ /user_answer_/}
+  session.merge!(answers)
   redirect to("/exercises/#{params[:exercise_title]}")
 end

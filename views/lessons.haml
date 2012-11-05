@@ -3,4 +3,5 @@
   %h3= category.name
   - category.lessons.each do |lesson|
     %p
+      %i.icon-book
       %a{ :href => lesson.url}= lesson.title

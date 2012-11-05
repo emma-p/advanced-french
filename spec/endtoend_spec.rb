@@ -73,7 +73,6 @@ describe 'exercise page' do
       get "exercises/#{exercise['title'].parameterize}"
       last_response.should be_ok
       last_response.body.should include exercise["title"]
-      last_response.body.should include exercise["questions"]["content"].split("__") 
     end
   end
 end
