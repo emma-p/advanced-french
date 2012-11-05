@@ -8,8 +8,11 @@ class ExercisesFetcher
   def get_exercises_from_files
     EXERCISES_FILES_PATHS.map do |file|
       exercise = parse_json_file file
-      title = exercise["title"].parameterize
-      Exercise.new title
+      title = exercise["title"]
+      questions = exercise["questions"].map do |question|
+        Question.new title, question["question_number"], question["content"], question["answer"], question["hint"]
+      end
+      Exercise.new title, questions
     end
   end
 end

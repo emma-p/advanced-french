@@ -1,14 +1,8 @@
 %h1 #{@exercise.title}
-- @questions.each do |question|
-  %p= question.content
--#%form{method: "post"} 
--#  - @questions.each do |question_number, data|
--#    %p #{data["content"]}
--#    - answer_in_input = session[question_number] == data["answer"] ? data["answer"] : ""
--#    %input{type: "text", name: question_number, value: answer_in_input}
--#    - if session[question_number] == data["answer"]
--#      Correct
--#    - elsif session[question_number] && session[question_number] != data["answer"]
--#      Faux 
--#    - else
--#  %input{type: "submit"}
+%form{method: "post"}
+  - @questions.each do |question|
+    %p #{question.content} (#{question.hint})
+    - user_answer_number = "user_answer_#{question.question_number}"
+    - user_answer = session[user_answer_number] == question.answer ? question.answer : ""
+    %input{type: "form", name: user_answer_number, value: user_answer}
+  %input{type: "submit"}

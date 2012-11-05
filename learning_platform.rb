@@ -29,17 +29,18 @@ get '/exercises' do
 end
 
 get '/exercises/:exercise_title' do
-  @exercise = Exercise.new params[:exercise_title]
+  all_exercises = ExercisesFetcher.new.get_exercises_from_files
+  @exercise = all_exercises.find { |exercise| exercise.name == params[:exercise_title] }
   @questions = @exercise.questions
   haml :exercise
 end
 
-post '/exercises/:exercise_name' do
-  exercise_file = File.read("data/exercises/#{params[:exercise_name]}.json")
-  @exercise_content = JSON.parse(exercise_file)
-  @questions = @exercise_content["questions"]
-  @questions.each do |question, data|
-    session[question] = request[question]
+post '/exercises/:exercise_title' do
+  all_exercises = ExercisesFetcher.new.get_exercises_from_files
+  @exercise = all_exercises.find { |exercise| exercise.name == params[:exercise_title] }
+  @questions = @exercise.questions
+  @questions.each do |question|
+    session["user_answer_#{question.question_number}"] = request["user_answer_#{question.question_number}"] 
   end
-  redirect to("/exercises/#{params[:exercise_name]}")
+  redirect to("/exercises/#{params[:exercise_title]}")
 end
