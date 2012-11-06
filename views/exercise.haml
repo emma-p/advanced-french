@@ -1,7 +1,13 @@
 %h1 #{@exercise.title}
+%p= session.inspect
 %form{method: "post"}
   - @questions.each do |question|
     - user_answer_number = "user_answer_#{question.question_number}"
-    - user_answer = session[user_answer_number] == question.answer ? question.answer : ""
-    %p #{question.content.gsub('__', "<input type='form', name='#{user_answer_number}', value= '#{user_answer}'></input>")} (#{bold(question.hint)})
+    - user_answer = session[user_answer_number]
+    - if user_answer == question.answer
+      %p= good_answer(question.content.gsub('__', bold(question.answer)))
+    - elsif user_answer != "" && user_answer != question.answer
+      %p= wrong_answer(question.content.gsub('__', "<input type='form', name='#{user_answer_number}', value= ''></input> (#{bold(question.hint)})"))
+    - else
+      %p= question.content.gsub('__', "<input type='form', name='#{user_answer_number}', value= ''></input> (#{bold(question.hint)})")
   %input{type: "submit"}
