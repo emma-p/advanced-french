@@ -11,7 +11,7 @@ require_relative 'lib/exercises_fetcher'
 require_relative 'views/helpers/exercise_helper'
 enable :sessions
 
-helpers ViewHelper
+helpers ExerciseHelper
 
 get '/' do
   haml :index
