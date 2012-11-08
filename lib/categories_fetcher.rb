@@ -9,7 +9,9 @@ class CategoriesFetcher
   LESSONS_FILE_PATH = "data/lessons.json"
   
   def get_categories
-    parsed_hash = parse_json_file lesson_file_path
+    #parsed_hash = parse_json_file lesson_file_path
+    db = Mongo::Connection.new.db "learning_platform_db"
+    parsed_hash = db["lessons"].find.to_a
     grouped_hash = parsed_hash.group_by{ |cat| cat["category"] }
     results = grouped_hash.map do |category, lessons|
       Category.new category, lessons.map {|lesson| Lesson.new lesson["title"]}
