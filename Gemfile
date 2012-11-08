@@ -1,0 +1,12 @@
+source "https://rubygems.org"
+gem "sinatra", :require => "sinatra/base"
+gem "json"
+gem "active_support"
+gem "i18n"
+gem "pry"
+gem "mongo"
+gem "rack"
+gem "rspec"
+gem "shotgun"
+gem "haml"
+
