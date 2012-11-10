@@ -2,11 +2,16 @@
 require 'bundler'
 Bundler.require
 require 'active_support/all'
-require_relative 'lib/lesson.rb'
-require_relative 'lib/exercise.rb'
+require_relative 'connection'
+require_relative 'lib/lesson'
+require_relative 'lib/exercise'
 require_relative 'lib/categories_fetcher'
 require_relative 'lib/exercises_fetcher'
 require_relative 'views/helpers/exercise_helper'
+require_relative 'lib/category'
+require_relative 'lib/lesson'
+
+
 
 class LearningPlatform < Sinatra::Base
   
@@ -28,7 +33,7 @@ class LearningPlatform < Sinatra::Base
   end
 
   get '/exercises' do
-    @exercises = ExercisesFetcher.new.get_exercises_from_files
+    @exercises = ExercisesFetcher.new.get_exercises
     haml :exercises
   end
 
