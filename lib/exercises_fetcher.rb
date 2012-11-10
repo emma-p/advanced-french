@@ -1,7 +1,4 @@
-require_relative 'exercise.rb'
-
 class ExercisesFetcher
-
   def get_exercises
     exercises = Connection.db["exercises"]
     exercises.find.map do |exercise|

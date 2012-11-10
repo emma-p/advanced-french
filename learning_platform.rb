@@ -1,20 +1,20 @@
 #encoding:utf-8
+['lib', File.dirname(__FILE__)].each { |path| $: << path }
+
 require 'bundler'
 Bundler.require
+
 require 'active_support/all'
-require_relative 'connection'
-require_relative 'lib/lesson'
-require_relative 'lib/exercise'
-require_relative 'lib/categories_fetcher'
-require_relative 'lib/exercises_fetcher'
-require_relative 'views/helpers/exercise_helper'
-require_relative 'lib/category'
-require_relative 'lib/lesson'
-
-
+require 'connection'
+require 'lesson'
+require 'question'
+require 'exercise'
+require 'categories_fetcher'
+require 'exercises_fetcher'
+require 'views/helpers/exercise_helper'
+require 'category'
 
 class LearningPlatform < Sinatra::Base
-  
   enable :sessions
 
   helpers ExerciseHelper

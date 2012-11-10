@@ -1,7 +1,4 @@
-require_relative 'question.rb'
-
 class Exercise < Struct.new(:title, :questions)
-
   def url
     "/exercises/#{name}"
   end
@@ -9,6 +6,4 @@ class Exercise < Struct.new(:title, :questions)
   def name
     title.parameterize
   end
-
 end
-
