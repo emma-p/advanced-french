@@ -1,15 +1,10 @@
-require_relative '../learning_platform'
 require_relative 'spec_helper'
-require_relative '../lib/lesson.rb'
-require_relative '../lib/exercise.rb'
-require_relative '../lib/categories_fetcher.rb'
-require_relative '../lib/parser_module'
 
 include Rack::Test::Methods
-include Parser
+include SpecHelper
 
 def app
-  Sinatra::Application
+  LearningPlatform
 end
 
 describe 'home page' do
