@@ -2,14 +2,11 @@ require_relative 'parser_module.rb'
 require_relative 'category.rb'
 require_relative 'lesson.rb'
 
-#CategoriesFetcher is a class which only goal is to get a list of the categories from the Lessons JSON file and give them to Sinatra.
+#CategoriesFetcher is a class which only goal is to get a list of the categories from the DB and give them to Sinatra.
 
 class CategoriesFetcher
-  include Parser
-  LESSONS_FILE_PATH = "data/lessons.json"
   
   def get_categories
-    #parsed_hash = parse_json_file lesson_file_path
     db = Mongo::Connection.new.db "learning_platform_db"
     parsed_hash = db["lessons"].find.to_a
     grouped_hash = parsed_hash.group_by{ |cat| cat["category"] }
@@ -17,13 +14,5 @@ class CategoriesFetcher
       Category.new category, lessons.map {|lesson| Lesson.new lesson["title"]}
     end
     results
-  end
-
-  def lesson_file_path= path
-    @lesson_file_path = path
-  end
-
-  def lesson_file_path
-    @lesson_file_path || LESSONS_FILE_PATH
   end
 end

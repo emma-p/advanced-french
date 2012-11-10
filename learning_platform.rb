@@ -1,12 +1,15 @@
 #encoding:utf-8
+require 'bundler'
+Bundler.require
+require 'active_support/all'
+require_relative 'lib/lesson.rb'
+require_relative 'lib/exercise.rb'
+require_relative 'lib/categories_fetcher'
+require_relative 'lib/exercises_fetcher'
+require_relative 'views/helpers/exercise_helper'
 
 class LearningPlatform < Sinatra::Base
   
-  require_relative 'lib/lesson.rb'
-  require_relative 'lib/exercise.rb'
-  require_relative 'lib/categories_fetcher'
-  require_relative 'lib/exercises_fetcher'
-  require_relative 'views/helpers/exercise_helper'
   enable :sessions
 
   helpers ExerciseHelper
