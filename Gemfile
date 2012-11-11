@@ -6,8 +6,13 @@ gem "active_support"
 gem "pry"
 gem "mongo"
 gem "rack"
-gem "rack-test", :require => "rack/test"
-gem "rspec", :require => "rspec/autorun"
-gem "shotgun"
 gem "haml"
 gem "bson_ext"
+
+group :test do
+  gem "rack-test", :require => "rack/test"
+  gem "rspec", :require => "rspec/autorun"
+end
+group :development do
+  gem "shotgun"
+end
