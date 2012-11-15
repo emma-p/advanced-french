@@ -10,12 +10,17 @@ class LearningPlatform < Sinatra::Base
     haml :index
   end
 
+  get '/about' do
+    haml :about
+  end
+
   get '/lessons' do
     @categories = CategoriesFetcher.new.get_categories
     haml :lessons 
   end
 
   get '/lessons/:lesson_name' do
+    @categories = CategoriesFetcher.new.get_categories
     haml "lessons-folder/#{params[:lesson_name]}".to_sym
   end
 
