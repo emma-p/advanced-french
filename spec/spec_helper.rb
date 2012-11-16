@@ -1,3 +1,4 @@
+#encoding:utf-8
 ENV['RACK_ENV'] = 'test'
 require_relative '../learning_platform'
 
