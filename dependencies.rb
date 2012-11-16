@@ -12,4 +12,4 @@ require 'categories_fetcher'
 require 'exercises_fetcher'
 require 'views/helpers/exercise_helper'
 require 'category'
-
+require 'rack/test'
