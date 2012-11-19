@@ -8,6 +8,7 @@ gem "mongo"
 gem "rack"
 gem "haml"
 gem "bson_ext"
+gem "rack-flash3", require: 'rack-flash'
 
 group :test do
   gem "rack-test", :require => "rack/test"
