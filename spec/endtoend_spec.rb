@@ -71,3 +71,21 @@ describe 'exercise page' do
     end
   end
 end
+
+describe 'login' do
+  it 'allows a signed up user to login' do
+    test_user = {username: "test_username", password: "test_password"}
+    parameters = {"username" => test_user["username"], "password" => test_user["test_password"]}
+    post "/login", parameters
+    last_request.url.should eq("/")
+  end
+end
+
+describe User do
+  describe "get_user_answers" do
+    it 'returns the user answers stored in the database' do
+      user = User.new 'test_username'
+      user.get_user_answers.should == '{"title" : "Conditionnel ou indicatif?", "answered_questions : [1,2,3]"}'
+    end
+  end
+end

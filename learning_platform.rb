@@ -3,6 +3,8 @@ require_relative 'dependencies'
 
 class LearningPlatform < Sinatra::Base
   enable :sessions
+  set :session_secret, "My session secret"
+  use Rack::Flash
 
   helpers ExerciseHelper
 
@@ -41,5 +43,21 @@ class LearningPlatform < Sinatra::Base
     answers = params.select{|k,v| k =~ /user_answer_/}
     session.merge!(answers)
     redirect to("/exercises/#{params[:exercise_title]}")
+  end
+
+  get '/login' do
+    haml :login
+  end
+
+  post '/login' do
+    if Connection.db["users"].find_one({"username" => params[:username], "password" => params[:password]})
+      session[:username] = params[:username]
+      session[:password] = params[:password]
+      session[:success_message] = "Welcome, #{params[:username]}"
+      redirect to("/")
+    else
+      flash[:error_message] = "Wrong email or password, please try again"
+      redirect to("/login")
+    end
   end
 end
