@@ -34,6 +34,7 @@ namespace "db" do
   
   desc "load the environment"
   task "environment" do
+    ENV['RACK_ENV'] ||= 'development'
     require_relative 'dependencies'
   end
 end

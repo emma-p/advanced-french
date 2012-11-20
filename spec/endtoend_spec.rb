@@ -1,3 +1,4 @@
+#encoding:utf-8
 require_relative 'spec_helper'
 
 include Rack::Test::Methods
@@ -7,85 +8,75 @@ def app
   LearningPlatform
 end
 
-describe 'home page' do
-  it 'loads the index' do
-    get '/'
-    last_response.should be_ok
-  end
-end
-
-describe 'lessons page' do
-
-  let(:parsed_json_file) {parse_json_file "data/lessons.json"} 
-
-  before do 
-    get '/lessons'
-  end
-
-  it 'displays all the lessons specified in the JSON file' do
-    last_response.should be_ok
-    parsed_json_file.each do |lesson|
-      last_response.body.should include lesson["title"]
-      last_response.body.should include lesson["category"]
-    end
-  end
-end
-
-describe 'lesson page' do
-
-  let(:parsed_json_file) {parse_json_file "data/lessons.json"} 
-
-  it 'displays the specific lesson required in the lessons page' do
-    parsed_json_file.each do |title, category|
-      get "/lessons/#{title['title'].parameterize}"
-      last_response.should be_ok
-      last_response.body.should include title["title"]
-    end
-  end
-end
-describe 'exercises page' do
-
+describe 'end to end' do
   before do
-    get '/exercises'
+    load_lessons_exercises_and_users
   end
 
-  it 'displays all the exercises available in the exercises folder' do
-    exercise_files = Dir.glob('data/exercises/*.json')
-    last_response.should be_ok
-    exercise_files.each do |exercise|
-      file = parse_json_file exercise
-      last_response.body.should include file["title"]
-    end
+  after do
+    drop_collections ["exercises", "lessons", "users"]
   end
-end
 
-describe 'exercise page' do
-
-  it 'displays the specific exercise required in the exercises page' do
-    exercises_files_paths = Dir.glob('data/exercises/*.json')
-    exercises_files_paths.each do |file|
-      exercise = parse_json_file file      
-      get "exercises/#{exercise['title'].parameterize}"
+  describe 'home page' do
+    it 'loads the index' do
+      get '/'
       last_response.should be_ok
-      last_response.body.should include exercise["title"]
     end
   end
-end
 
-describe 'login' do
-  it 'allows a signed up user to login' do
-    test_user = {username: "test_username", password: "test_password"}
-    parameters = {"username" => test_user["username"], "password" => test_user["test_password"]}
-    post "/login", parameters
-    last_request.url.should eq("/")
+  describe 'lessons page' do
+    it 'displays all the lessons' do
+      get '/lessons'
+
+      last_response.should be_ok
+      last_response.body.should include "Adverbes" #title
+      last_response.body.should include "Grammaire" #category
+    end
   end
-end
 
-describe User do
-  describe "get_user_answers" do
-    it 'returns the user answers stored in the database' do
-      user = User.new 'test_username'
-      user.get_user_answers.should == '{"title" : "Conditionnel ou indicatif?", "answered_questions : [1,2,3]"}'
+  describe 'lesson page' do
+    it 'displays the specific lesson required in the lessons page' do
+      get "/lessons/adverbes"
+      last_response.should be_ok
+      last_response.body.should include "Adverbes"
+    end
+  end
+  describe 'exercises page' do
+
+
+    it 'displays all the exercises available in the exercises folder' do
+      get '/exercises'
+      last_response.should be_ok
+      last_response.body.should include "Conditionnel ou indicatif?"
+    end
+  end
+
+  describe 'exercise page' do
+
+    it 'displays the specific exercise required in the exercises page' do
+      get "/exercises/conditionnel-ou-indicatif"
+      last_response.should be_ok
+      last_response.body.should include "Conditionnel ou indicatif?"
+      last_response.body.should include "Marianne a affirmé qu'elle viendrait"
+    end
+  end
+
+  describe 'login' do
+    it 'allows a signed up user to login' do
+      parameters = {username: "test_username", password: "test_password"}
+      post "/login", parameters
+      follow_redirect!
+      last_response.should be_ok
+    end
+  end
+
+  describe UserDataFetcher do
+    describe "#get_user_answers" do
+      it 'returns the user answers stored in the database' do
+        user = User.new 'test_username', 'test_password'
+        fetcher = UserDataFetcher.new user
+        fetcher.get_user_answers.first.should == {"exercise_title" => "Conditionnel ou indicatif?", "answered_questions" => [1,2,4]}
+      end
     end
   end
 end

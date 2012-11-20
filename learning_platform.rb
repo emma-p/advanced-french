@@ -50,10 +50,11 @@ class LearningPlatform < Sinatra::Base
   end
 
   post '/login' do
-    if Connection.db["users"].find_one({"username" => params[:username], "password" => params[:password]})
-      session[:username] = params[:username]
-      session[:password] = params[:password]
-      session[:success_message] = "Welcome, #{params[:username]}"
+    if Connection.db["users"].find_one({"username" => params["username"], "password" => params["password"]})
+      session["username"] = params["username"]
+      session["password"] = params["password"]
+      session["success_message"] = "Welcome, #{params["username"]}"
+      user = User.new params["username"]
       redirect to("/")
     else
       flash[:error_message] = "Wrong email or password, please try again"
