@@ -67,16 +67,8 @@ describe 'end to end' do
       post "/login", parameters
       follow_redirect!
       last_response.should be_ok
+      last_response.body.should include "Welcome"
     end
   end
 
-  describe UserDataFetcher do
-    describe "#get_user_answers" do
-      it 'returns the user answers stored in the database' do
-        user = User.new 'test_username', 'test_password'
-        fetcher = UserDataFetcher.new user
-        fetcher.get_user_answers.first.should == {"exercise_title" => "Conditionnel ou indicatif?", "answered_questions" => [1,2,4]}
-      end
-    end
-  end
 end

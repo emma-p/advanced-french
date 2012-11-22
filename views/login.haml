@@ -4,5 +4,5 @@
   %label(for="password")Password:
   %input#password{type:"password", name:"password"}
   %input{type:"submit", value:"Login"} or <a href="/">Cancel</a>
-%p= flash[:error_message]
-
+%p= session[:error_message]
+%p= session.inspect

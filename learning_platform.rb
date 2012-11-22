@@ -4,9 +4,17 @@ require_relative 'dependencies'
 class LearningPlatform < Sinatra::Base
   enable :sessions
   set :session_secret, "My session secret"
-  use Rack::Flash
 
   helpers ExerciseHelper
+
+  before do
+    if params[:username] && params[:password]
+      if Bouncer.user_can_authenticate? params["username"], params["password"]
+        session["userid"] = params["username"]
+        @user = User.new session["userid"]
+      end
+    end
+  end
 
   get '/' do
     haml :index
@@ -34,6 +42,7 @@ class LearningPlatform < Sinatra::Base
   get '/exercises/:exercise_title' do
     @exercise = ExercisesFetcher.new.find_exercise params[:exercise_title]
     @questions = @exercise.questions
+    user_answers = UserDataFetcher.new  
     haml :exercise
   end
 
@@ -50,14 +59,11 @@ class LearningPlatform < Sinatra::Base
   end
 
   post '/login' do
-    if Connection.db["users"].find_one({"username" => params["username"], "password" => params["password"]})
-      session["username"] = params["username"]
-      session["password"] = params["password"]
-      session["success_message"] = "Welcome, #{params["username"]}"
-      user = User.new params["username"]
+    if @user
+      session["success_message"] = "Welcome, #{@user.username}!"
       redirect to("/")
     else
-      flash[:error_message] = "Wrong email or password, please try again"
+      session[:error_message] = "Wrong email or password, please try again"
       redirect to("/login")
     end
   end

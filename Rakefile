@@ -3,6 +3,7 @@ namespace "db" do
   task "seed" => "clean" do
     LESSONS_FILE = 'data/lessons.json'
     EXERCISES_FOLDER = 'data/exercises/'
+    USERS_FILE = 'data/users.json'
 
     db = Connection.db
 
@@ -10,6 +11,9 @@ namespace "db" do
     db["lessons"].insert JSON.parse(File.read LESSONS_FILE)
     puts "done"
 
+    puts "inserting users..."
+    db["users"].insert JSON.parse(File.read USERS_FILE)
+    puts "done"
 
     puts "inserting exercises..."
     Dir.glob(EXERCISES_FOLDER + "**/*.json").each do |f|
