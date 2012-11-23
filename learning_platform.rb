@@ -4,6 +4,7 @@ require_relative 'dependencies'
 class LearningPlatform < Sinatra::Base
   enable :sessions
   set :session_secret, "My session secret"
+  use Rack::Flash
 
   helpers ExerciseHelper
 
@@ -55,16 +56,24 @@ class LearningPlatform < Sinatra::Base
   end
 
   get '/login' do
-    haml :login
+    if session["userid"]
+      redirect to("/")
+    else
+      haml :login
+    end
   end
 
   post '/login' do
     if @user
-      session["success_message"] = "Welcome, #{@user.username}!"
       redirect to("/")
     else
-      session[:error_message] = "Wrong email or password, please try again"
+      flash[:error_message] = "Wrong email or password, please try again"
       redirect to("/login")
     end
+  end
+
+  get '/signout' do
+    session["userid"] = nil
+    redirect to("/")
   end
 end

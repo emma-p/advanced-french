@@ -4,6 +4,7 @@
     %link{:href => "/css/bootstrap.min.css", :rel => "stylesheet"} 
     %link{:href => "/css/titles.css", :rel => "stylesheet"}
     %link{:href => "/css/lessons.css", :rel => "stylesheet"}
+    %link{:href => "/css/nav.css", :rel => "stylesheet"}
   %body
     %script{:type => "text/javascript", :src => "../js/jquery.js"}
     %script{:type => "text/javascript", :src => "../js/lesson.js"}
@@ -16,8 +17,13 @@
               %a{:href => "/lessons"} Lessons
             %li
               %a{:href => "/exercises"} Exercises 
-            %li
-              %a{:href => "/login"} Login
+            - if session["userid"]
+              %li.login-message Logged in as #{session["userid"]}
+              %li 
+                %a{:href => "/signout"} Sign out
+            - else
+              %li.login
+                %a{:href => "/login"} Login
       .row
         .span8
           =yield

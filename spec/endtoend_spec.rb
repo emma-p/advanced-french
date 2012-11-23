@@ -67,8 +67,38 @@ describe 'end to end' do
       post "/login", parameters
       follow_redirect!
       last_response.should be_ok
-      last_response.body.should include "Welcome"
+      last_response.body.should include "Logged in as test_username"
+      last_response.body.should include "Sign out"
+    end
+
+    it 'does not allow a non signed up user to login' do
+      parameters = {username: "bad_username", password: "bas_password"}
+      post "/login", parameters
+      follow_redirect!
+      last_response.body.should include "Wrong email or password"
+      last_response.body.should include "Login"
+    end
+
+    it 'does not allow a signed up user to try to login again' do
+      parameters = {username: "test_username", password: "test_password"}
+      post "/login", parameters
+      follow_redirect!
+      get "/login"
+      follow_redirect!
+      last_response.should be_ok
+      last_response.body.should include "Browse our lessons with topics"
     end
   end
 
+  describe 'signout' do
+    it 'disconnects a logged in user' do
+      parameters = {username: "test_username", password: "test_password"}
+      post "/login", parameters
+      follow_redirect!
+      get '/signout'
+      follow_redirect!
+      last_response.body.should_not include "Logged in as test_username"
+      last_response.body.should include "Login"
+    end
+  end
 end
