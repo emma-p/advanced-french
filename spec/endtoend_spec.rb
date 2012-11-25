@@ -63,16 +63,16 @@ describe 'end to end' do
 
   describe 'login' do
     it 'allows a signed up user to login' do
-      parameters = {username: "test_username", password: "test_password"}
+      parameters = {email: "foo@bar.com", password: "pass"}
       post "/login", parameters
       follow_redirect!
       last_response.should be_ok
-      last_response.body.should include "Logged in as test_username"
+      last_response.body.should include "Logged in as foo@bar.com"
       last_response.body.should include "Sign out"
     end
 
     it 'does not allow a non signed up user to login' do
-      parameters = {username: "bad_username", password: "bas_password"}
+      parameters = {email: "four@bar.com", password: "pass"}
       post "/login", parameters
       follow_redirect!
       last_response.body.should include "Wrong email or password"
@@ -80,7 +80,7 @@ describe 'end to end' do
     end
 
     it 'does not allow a signed up user to try to login again' do
-      parameters = {username: "test_username", password: "test_password"}
+      parameters = {email: "foo@bar.com", password: "pass"}
       post "/login", parameters
       follow_redirect!
       get "/login"
@@ -92,12 +92,12 @@ describe 'end to end' do
 
   describe 'signout' do
     it 'disconnects a logged in user' do
-      parameters = {username: "test_username", password: "test_password"}
+      parameters = {email: "foo@bar.com", password: "pass"}
       post "/login", parameters
       follow_redirect!
       get '/signout'
       follow_redirect!
-      last_response.body.should_not include "Logged in as test_username"
+      last_response.body.should_not include "Logged in as foo@bar.com"
       last_response.body.should include "Login"
     end
   end

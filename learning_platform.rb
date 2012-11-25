@@ -8,15 +8,6 @@ class LearningPlatform < Sinatra::Base
 
   helpers ExerciseHelper
 
-  before do
-    if params[:username] && params[:password]
-      if Bouncer.user_can_authenticate? params["username"], params["password"]
-        session["userid"] = params["username"]
-        @user = User.new session["userid"]
-      end
-    end
-  end
-
   get '/' do
     haml :index
   end
@@ -43,7 +34,10 @@ class LearningPlatform < Sinatra::Base
   get '/exercises/:exercise_title' do
     @exercise = ExercisesFetcher.new.find_exercise params[:exercise_title]
     @questions = @exercise.questions
-    user_answers = UserDataFetcher.new  
+    if session[:email]
+      user_answer_service = UserAnswerService.new User.new session[:email]
+      @user_answers = user_answer_service.get_user_answers
+    end
     haml :exercise
   end
 
@@ -56,7 +50,7 @@ class LearningPlatform < Sinatra::Base
   end
 
   get '/login' do
-    if session["userid"]
+    if session["email"]
       redirect to("/")
     else
       haml :login
@@ -64,7 +58,8 @@ class LearningPlatform < Sinatra::Base
   end
 
   post '/login' do
-    if @user
+    if Bouncer.user_can_authenticate? params["email"], params["password"]
+      session["email"] = params["email"]
       redirect to("/")
     else
       flash[:error_message] = "Wrong email or password, please try again"
@@ -73,7 +68,7 @@ class LearningPlatform < Sinatra::Base
   end
 
   get '/signout' do
-    session["userid"] = nil
+    session["email"] = nil
     redirect to("/")
   end
 end

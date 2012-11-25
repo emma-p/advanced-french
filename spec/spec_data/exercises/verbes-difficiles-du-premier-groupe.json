@@ -1,62 +1,63 @@
-{ "title": "Verbes difficiles du premier groupe",
+{ "id": 2,
+  "title": "Verbes difficiles du premier groupe",
   "questions": 
   [
     {
-      "question_number": "1",
+      "question_number": 1,
       "content": "__ -tu avoir la réponse avant le mois prochain?",
       "answer": "Espères",
       "hint": "espérer/ présent de l'indicatif"
     },
     {
-      "question_number": "2",
+      "question_number": 2,
       "content": "Ne __ pas cette feuille, tu pourrais en avoir besoin.",
       "answer": "jette",
       "hint": "jeter/présent de l'impératif"
     },
     {
-      "question_number": "3",
+      "question_number": 3,
       "content": "Nos partenaires financiers nous __ très certainement pour réaliser ce projet rapidement.",
       "answer": "appuieront",
       "hint": "appuyer/futur de l'indicatif"
     },
     {
-      "question_number": "4",
+      "question_number": 4,
       "content": "Je vous __ la facture concernant la mission du 12 juin 2012.",
       "answer": "envoie",
       "hint": "envoyer/présent de l'indicatif"
     },
     {
-      "question_number": "5",
+      "question_number": 5,
       "content": "Vous nous avez dit que vous nous __ le résultat des entrevues, mais nous n'avons toujours rien reçu.",
       "answer": "enverriez",
       "hint": "envoyer/conditionnel présent"
     },
     {
-      "question_number": "6",
+      "question_number": 6,
       "content": "Ce graphiste pourrait être une ressource précieuse pour l'entreprise, les illustrations qu'il __ sont de très bonne qualité.",
       "answer": "crée",
       "hint": "créer/présent de l'indicatif"
     },
     {
-      "question_number": "7",
+      "question_number": 7,
       "content": "Tu l'__ ? Non, pas aujourd'hui, j'ai du travail.",
       "answer": "appelles",
       "hint": "appeler/présent de l'indicatif"
     },
     {
-      "question_number": "8",
+      "question_number": 8,
       "content": "Je vous __ probablement concernant la livraison des imprimantes dans les prochains jours.",
       "answer": "rappellerai",
       "hint": "rappeler/futur de l'indicatif"
     },
     {
-      "question_number": "9",
+      "question_number": 9,
       "content": "J'__ bien cet ordinateur mais je n'ai pas envie de jeter le précédent.",
       "answer": "achèterais",
       "hint": "acheter/présent du conditionnel"
     },
     {
-      "question_number": "10",
+      "question_number": 10,
       "content": "Les anciens directeurs __ toujours des idées sans jamais les appliquer ensuite.",
       "answer": "lançaient",
       "hint": "lancer/ imparfait de l'indicatif"

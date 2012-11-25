@@ -17,8 +17,8 @@
               %a{:href => "/lessons"} Lessons
             %li
               %a{:href => "/exercises"} Exercises 
-            - if session["userid"]
-              %li.login-message Logged in as #{session["userid"]}
+            - if session["email"]
+              %li.login-message Logged in as #{session["email"]}
               %li 
                 %a{:href => "/signout"} Sign out
             - else
