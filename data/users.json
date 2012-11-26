@@ -1,1 +1,1 @@
-{ "email": "foo@bar.com", "password": "pass", "user_answers": [ { "exercise_title": "Conditionnel ou indicatif?", "answered_questions": [1,2,4] }, { "exercise_title": "Verbes difficiles du premier groupe", "answered_questions": [3,5,6] } ] }
+{ "email": "foo@bar.com", "password": "pass", "user_answers": [ { "exercise_id": 1, "answered_questions": [1,2,4] }, { "exercise_id": 2, "answered_questions": [3,5,7] } ] }
