@@ -27,7 +27,7 @@ namespace "db" do
     puts 'connecting...'
     db = Connection.db
     puts 'connected'
-    collections = ["exercises", "lessons"]
+    collections = ["exercises", "lessons", "users"]
     collections.each do |col|
       puts "deleting #{col}..."
       db[col].drop
