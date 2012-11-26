@@ -1,5 +1,3 @@
-#CategoriesFetcher is a class which only goal is to get a list of the categories from the DB and give them to Sinatra.
-
 class CategoriesFetcher
   
   def get_categories
@@ -10,4 +8,5 @@ class CategoriesFetcher
     end
     results
   end
+
 end
