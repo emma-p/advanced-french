@@ -36,7 +36,8 @@ class LearningPlatform < Sinatra::Base
     @questions = @exercise.questions
     if session[:email]
       user_answer_service = UserAnswerService.new User.new session[:email]
-      @user_answers = user_answer_service.get_user_answers
+      @user_answers = user_answer_service.get_user_answers.select{|exercise| exercise["exercise_id"] == @exercise.id}.fetch(0)
+      @answered_questions = @user_answers["answered_questions"] 
     end
     haml :exercise
   end
@@ -44,7 +45,7 @@ class LearningPlatform < Sinatra::Base
   post '/exercises/:exercise_title' do
     @exercise = ExercisesFetcher.new.find_exercise params[:exercise_title]
     @questions = @exercise.questions
-    answers = params.select{|k,v| k =~ /user_answer_/}
+    answers = params.select{|k,v| k =~ /attempt_/}
     session.merge!(answers)
     redirect to("/exercises/#{params[:exercise_title]}")
   end

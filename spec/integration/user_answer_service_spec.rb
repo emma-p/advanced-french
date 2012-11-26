@@ -16,8 +16,8 @@ describe 'integration' do
     describe "#get_user_answers" do
       it 'returns the user answers stored in the database' do
         user = User.new 'foo@bar.com'
-        user_data_fetcher = UserAnswerService.new user
-        user_data_fetcher.get_user_answers.first.should == {"exercise_title" => "Conditionnel ou indicatif?", "answered_questions" => [1,2,4]}
+        user_answer_service = UserAnswerService.new user
+        user_answer_service.get_user_answers.first.should == {"exercise_id" => 1, "answered_questions" => [1,2,4]}
       end
     end
   end

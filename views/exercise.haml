@@ -1,14 +1,5 @@
 %h1 #{@exercise.title}
-%p= @user_answers
 %form{method: "post"}
-  - @questions.each do |question|
-    - content = question.content
-    - user_answer_number = "user_answer_#{question.question_number}"
-    - user_answer = session[user_answer_number]
-    - if user_answer == question.answer
-      %p= add_good_answer_icon content.gsub('__', "#{boldify question.answer}")
-    - elsif user_answer != nil && user_answer != "" && user_answer != question.answer
-      %p= add_wrong_answer_icon content.gsub('__', "#{create_form_input user_answer_number} (#{boldify question.hint})")
-    - else
-      %p= content.gsub('__', "#{create_form_input user_answer_number} (#{boldify question.hint})")
+  - display_questions.each do |question|
+    %p= question
   %input{type: "submit", value:"Répondre"}

@@ -1,4 +1,4 @@
-class Exercise < Struct.new(:title, :questions)
+class Exercise < Struct.new(:id, :title, :questions)
   def name
     title.parameterize
   end
