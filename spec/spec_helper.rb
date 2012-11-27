@@ -1,7 +1,10 @@
 #encoding:utf-8
 ENV['RACK_ENV'] = 'test'
 require 'rack/test'
+require 'capybara/rspec'
 require_relative '../learning_platform'
+
+Capybara.app = LearningPlatform
 
 module SpecHelper
   TEST_LESSONS_FILE = 'spec/spec_data/lessons.json'

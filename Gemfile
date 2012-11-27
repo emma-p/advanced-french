@@ -13,6 +13,7 @@ gem "rack-flash3", require: 'rack-flash'
 group :test do
   gem "rack-test", :require => "rack/test"
   gem "rspec", :require => "rspec/autorun"
+  gem "capybara"
 end
 group :development do
   gem "shotgun"
