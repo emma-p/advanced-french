@@ -33,10 +33,9 @@ class LearningPlatform < Sinatra::Base
   get '/exercises/:exercise_title' do
     @exercise = ExercisesFetcher.new.find_exercise params[:exercise_title]
     @questions = @exercise.questions
-    if session[:email]
+    if logged_in
       user_answer_service = UserAnswerService.new User.new session[:email]
-      @user_answers = user_answer_service.get_user_answers.select{|exercise| exercise["exercise_id"] == @exercise.id}.fetch(0)
-      @answered_questions = @user_answers["answered_questions"] 
+      @answered_questions = user_answer_service.get_user_answers_for @exercise
     end
     haml :exercise
   end
@@ -50,7 +49,7 @@ class LearningPlatform < Sinatra::Base
   end
 
   get '/login' do
-    if session["email"]
+    if logged_in
       redirect to("/")
     else
       haml :login
@@ -71,4 +70,11 @@ class LearningPlatform < Sinatra::Base
     session["email"] = nil
     redirect to("/")
   end
+
+  private
+
+  def logged_in
+    !!session[:email]
+  end
+
 end
