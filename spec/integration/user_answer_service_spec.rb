@@ -13,11 +13,12 @@ describe 'integration' do
   end
 
   describe UserAnswerService do
-    describe "#get_user_answers" do
+    describe "#get_user_answers_for" do
       it 'returns the user answers stored in the database' do
         user = User.new 'foo@bar.com'
         user_answer_service = UserAnswerService.new user
-        user_answer_service.get_user_answers.first.should == {"exercise_id" => 1, "answered_questions" => [1,2,4]}
+        exercise = ExercisesFetcher.new.find_exercise 'conditionnel-ou-indicatif' 
+        user_answer_service.get_user_answers_for(exercise).should == [1,2,4]
       end
     end
   end
