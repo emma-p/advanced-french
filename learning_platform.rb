@@ -6,7 +6,7 @@ class LearningPlatform < Sinatra::Base
   set :session_secret, "My session secret"
   use Rack::Flash
 
-  helpers ExerciseHelper
+  helpers ExercisePresenter
 
   get '/' do
     haml :index
@@ -45,6 +45,10 @@ class LearningPlatform < Sinatra::Base
     @questions = @exercise.questions
     answers = params.select{|k,v| k =~ /attempt_/}
     session.merge!(answers)
+    if logged_in
+      user_answer_service = UserAnswerService.new User.new session[:email]
+      user_answer_service.save_user_answers(@exercise, answers_to_save(questions_status))
+    end
     redirect to("/exercises/#{params[:exercise_title]}")
   end
 

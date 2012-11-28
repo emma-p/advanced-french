@@ -52,17 +52,6 @@ describe 'end to end', :type => :feature do
       page.should have_text "Marianne a affirmé qu'elle viendrait"
     end
 
-    it 'displays the questions already answered by a logged in user' do
-      visit '/login'
-      fill_in 'email', :with => 'foo@bar.com' 
-      fill_in 'password', :with => 'pass' 
-      click_button 'Login'
-      visit "/exercises/conditionnel-ou-indicatif"
-      page.should have_text "aurait fini"
-      page.should have_text "aurais"
-      page.should have_text "souhaiterais"
-    end
-
     it 'returns an empty question box and x icon when the user gives a wrong answer' do
       visit "/exercises/conditionnel-ou-indicatif"
       fill_in 'attempt_3', :with => 'fours'
@@ -78,6 +67,33 @@ describe 'end to end', :type => :feature do
       page.should have_text "Nous serons tous soulagés lorsqu'il pourra" 
       page.should have_css('i.icon-ok', :count => 1)
     end
+    
+    it 'displays the questions already answered by a logged in user' do
+      visit '/login'
+      fill_in 'email', :with => 'foo@bar.com' 
+      fill_in 'password', :with => 'pass' 
+      click_button 'Login'
+      visit "/exercises/conditionnel-ou-indicatif"
+      page.should have_text "aurait fini"
+      page.should have_text "aurais"
+      page.should have_text "souhaiterais"
+    end
+
+    it 'saves correct answers in the db for logged in users' do
+      visit '/login  '
+      fill_in 'email', :with => 'foo@bar.com' 
+      fill_in 'password', :with => 'pass' 
+      click_button 'Login'
+      visit "/exercises/conditionnel-ou-indicatif"
+      fill_in 'attempt_9', :with => 'étaient'
+      fill_in 'attempt_10', :with => 'pourra'
+      click_button 'Submit'
+      user = User.new 'foo@bar.com'
+      user_answer_service = UserAnswerService.new user
+      exercise = ExercisesFetcher.new.find_exercise 'conditionnel-ou-indicatif' 
+      user_answer_service.get_user_answers_for(exercise).should == [1,2,4,9,10]
+    end
+
   end
 
   describe 'login' do
