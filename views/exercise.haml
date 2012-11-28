@@ -2,4 +2,4 @@
 %form{method: "post"}
   - question_presentation.each do |hash|
     %p= erb "question_#{hash[:status]}".to_sym, locals: {content: hash[:question].content, answer: hash[:question].answer, hint: hash[:question].hint, attempt_number: "attempt_#{hash[:question].number}"}
-  %input{type: "submit", value:"Répondre"}
+  %input{type: "submit", value:"Submit"}
