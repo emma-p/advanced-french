@@ -2,8 +2,7 @@
 require_relative '../spec_helper'
 
 describe Exercise do
-  let (:exercise_title) { "Révisez les fondamentaux de la conjugaison!"}
-  subject { Exercise.new 3, exercise_title}
+  subject { Exercise.new 3, "Révisez les fondamentaux de la conjugaison"}
     
   describe '#name' do
     it 'parameterizes the exercise title' do

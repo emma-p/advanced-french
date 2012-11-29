@@ -16,13 +16,13 @@
     }, 
     {
       "number": 3,
-      "content": "Vous __ si vous pourrez assister à la présentation demain.", 
+      "content": "Vous __ si vous pouvez assister à la présentation demain.", 
       "answer": "verrez", 
       "hint": "voir"
     }, 
     {
       "number": 4,
-      "content": "Je __ avoir plus d'nformations sur vos prestations.", 
+      "content": "Je __ avoir plus d'informations sur vos prestations.", 
       "answer": "souhaiterais", 
       "hint": "souhaiter"
     }, 

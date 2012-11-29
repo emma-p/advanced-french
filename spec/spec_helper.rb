@@ -23,8 +23,9 @@ module SpecHelper
     end
   end
 
-  def drop_collections collections
+  def drop_all_collections
     db = Connection.db
+    collections = ["lessons", "users", "exercises"]
     collections.each do |col|
       db[col].drop
     end
