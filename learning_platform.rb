@@ -17,7 +17,7 @@ class LearningPlatform < Sinatra::Base
   end
 
   get '/lessons' do
-    @categories = CategoriesFetcher.new.get_categories
+    @lesson_categories = LessonCategoriesFetcher.new.get_lesson_categories
     haml :lessons 
   end
 
@@ -71,7 +71,7 @@ class LearningPlatform < Sinatra::Base
   end
 
   get '/signout' do
-    session["email"] = nil
+    session.clear
     redirect to("/")
   end
 

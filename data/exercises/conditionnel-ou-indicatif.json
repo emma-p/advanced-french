@@ -16,7 +16,7 @@
     }, 
     {
       "number": 3,
-      "content": "Vous __ si vous pourrez assister à la présentation demain.", 
+      "content": "Vous __ si vous pouvez assister à la présentation demain.", 
       "answer": "verrez", 
       "hint": "voir"
     }, 
