@@ -34,7 +34,7 @@ class LearningPlatform < Sinatra::Base
     @exercise = ExercisesFetcher.new.find_exercise params[:exercise_title]
     @questions = @exercise.questions
     if logged_in
-      user_answer_service = UserAnswerService.new User.new session[:email]
+      user_answer_service = UserAnswerService.new session[:email]
       @answered_questions = user_answer_service.get_user_answers_for @exercise
     end
     haml :exercise
@@ -46,7 +46,7 @@ class LearningPlatform < Sinatra::Base
     answers = params.select{|k,v| k =~ /attempt_/}
     session.merge!(answers)
     if logged_in
-      user_answer_service = UserAnswerService.new User.new session[:email]
+      user_answer_service = UserAnswerService.new session[:email]
       user_answer_service.save_user_answers(@exercise, answers_to_save(questions_status))
     end
     redirect to("/exercises/#{params[:exercise_title]}")

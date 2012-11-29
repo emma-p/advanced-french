@@ -1,2 +1,2 @@
-class User < Struct.new(:email, :answers)
+class User < Struct.new(:email)
 end 

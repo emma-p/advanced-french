@@ -13,8 +13,7 @@ describe 'integration' do
   end
 
   describe UserAnswerService do
-    let (:user) { double('user', :email => 'foo@bar.com') }
-    let (:user_answer_service) { UserAnswerService.new(user) }
+    let (:user_answer_service) { UserAnswerService.new 'foo@bar.com' }
     let (:exercise) { double('exercise', :id => 1)}
 
     it 'returns the user answers stored in the database' do

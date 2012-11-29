@@ -112,8 +112,7 @@ describe 'end to end', :type => :feature do
       fill_in 'attempt_9', :with => 'étaient'
       fill_in 'attempt_10', :with => 'pourra'
       click_button 'Submit'
-      user = User.new 'foo@bar.com'
-      user_answer_service = UserAnswerService.new user
+      user_answer_service = UserAnswerService.new 'foo@bar.com'
       exercise = ExercisesFetcher.new.find_exercise 'conditionnel-ou-indicatif' 
       user_answer_service.get_user_answers_for(exercise).should == [1,2,4,9,10]
     end
