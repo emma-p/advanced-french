@@ -1,18 +1,24 @@
 namespace "db" do
-  desc "seed production database"
+  desc "add new user"
+  task "add_user" => "environment" do
+    db = Connection.db
+    email = ENV['email']
+    password = ENV['password']
+    raise 'please provide valid email and password' unless email && password
+    raise UserAlreadyCreated if db["users"].find_one("email" => email)
+    db["users"].insert({"email" => email, "password" => password, "user_answers" => []})
+    puts "user #{email} created successfully!"
+  end
+
+  desc "seed database"
   task "seed" => "clean" do
     LESSONS_FILE = 'data/lessons.json'
     EXERCISES_FOLDER = 'data/exercises/'
-    USERS_FILE = 'data/users.json'
 
     db = Connection.db
 
     puts "inserting lessons..."
     db["lessons"].insert JSON.parse(File.read LESSONS_FILE)
-    puts "done"
-
-    puts "inserting users..."
-    db["users"].insert JSON.parse(File.read USERS_FILE)
     puts "done"
 
     puts "inserting exercises..."
@@ -27,7 +33,7 @@ namespace "db" do
     puts 'connecting...'
     db = Connection.db
     puts 'connected'
-    collections = ["exercises", "lessons", "users"]
+    collections = ["exercises", "lessons"]
     collections.each do |col|
       puts "deleting #{col}..."
       db[col].drop
@@ -41,4 +47,7 @@ namespace "db" do
     ENV['RACK_ENV'] ||= 'development'
     require_relative 'dependencies'
   end
+end
+
+class UserAlreadyCreated < RuntimeError
 end
