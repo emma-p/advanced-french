@@ -5,9 +5,19 @@ namespace "db" do
     email = ENV['email']
     password = ENV['password']
     raise 'please provide valid email and password' unless email && password
-    raise UserAlreadyCreated if db["users"].find_one("email" => email)
+    raise 'user already created' if db["users"].find_one("email" => email)
     db["users"].insert({"email" => email, "password" => password, "user_answers" => []})
     puts "user #{email} created successfully!"
+  end
+
+  desc "delete user"
+  task "delete_user" => "environment" do
+    db = Connection.db
+    email = ENV['email']
+    raise 'please provide a valid email' unless email
+    raise 'user does not exist' unless db["users"].find_one("email" => email)
+    db["users"].remove("email" => email)
+    puts "user #{email} deleted"
   end
 
   desc "seed database"
@@ -47,7 +57,4 @@ namespace "db" do
     ENV['RACK_ENV'] ||= 'development'
     require_relative 'dependencies'
   end
-end
-
-class UserAlreadyCreated < RuntimeError
 end
