@@ -11,7 +11,7 @@ class Connection
       db.authenticate(db_info.user, db_info.password) unless (db_info.user.nil? || db_info.user.nil?) 
       db
     else
-      db = Mongo::Connection.new.db "learning_platform_#{ENV['RACK_ENV']}_db", safe: true
+      db = Mongo::Connection.new.db "advanced_french_#{ENV['RACK_ENV']}_db", safe: true
     end
   end
 end

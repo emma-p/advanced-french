@@ -3,10 +3,6 @@ require_relative 'spec_helper'
 
 include SpecHelper
 
-def app
-  LearningPlatform
-end
-
 describe 'end to end', :type => :feature do
 
   before do

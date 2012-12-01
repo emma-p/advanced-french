@@ -2,9 +2,9 @@
 ENV['RACK_ENV'] = 'test'
 require 'rack/test'
 require 'capybara/rspec'
-require_relative '../learning_platform'
+require_relative '../advanced_french'
 
-Capybara.app = LearningPlatform
+Capybara.app = AdvancedFrench
 
 module SpecHelper
   TEST_LESSONS_FILE = 'spec/spec_data/lessons.json'

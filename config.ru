@@ -1,2 +1,2 @@
-require "./learning_platform"
-run LearningPlatform
+require "./advanced_french"
+run AdvancedFrench
