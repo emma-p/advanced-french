@@ -17,7 +17,8 @@ class LearningPlatform < Sinatra::Base
   end
 
   get '/lessons' do
-    @lesson_categories = LessonCategoriesFetcher.new.get_lesson_categories
+    @lessons = LessonsFetcher.new.get_lessons
+    @categories = LessonsFetcher.new.get_categories
     haml :lessons 
   end
 

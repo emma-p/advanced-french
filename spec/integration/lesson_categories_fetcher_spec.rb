@@ -10,19 +10,20 @@ describe 'integration' do
     drop_all_collections
   end
 
-  describe LessonCategoriesFetcher do
-    subject { LessonCategoriesFetcher.new }
+  describe LessonsFetcher do
+    subject { LessonsFetcher.new }
 
-    it 'returns the lesson categories from the database' do
-      categories = subject.get_lesson_categories 
-      categories_names = categories.map {|category| category.name}
-      categories_names.sort.should == ["Grammaire", "Orthographe", "Rédaction"] 
+    describe '#get_lessons' do
+      it 'returns the lessons from the db' do
+        lessons = subject.get_lessons.map{|lesson| lesson.title}
+        lessons.should =~ ["Adverbes", "Conditionnel", "Mots à ne pas confondre", "Accents sur la lettre e", "10 astuces pour écrire de bons courriels"]
+      end
     end
 
-    it 'returns the lessons corresponding to each category from the database' do
-      categories = subject.get_lesson_categories 
-      grammar_lessons = categories.find{|category| category.name == "Grammaire"}.lessons.map{|lesson| lesson.title}
-      grammar_lessons.should == ["Adverbes", "Conditionnel"]
+    describe 'get_categories' do
+      it 'returns the categories and the corresponding lessons from the db' do
+        subject.get_categories.should =~ ["Grammaire", "Rédaction", "Orthographe"]
+      end
     end
   end
 end
