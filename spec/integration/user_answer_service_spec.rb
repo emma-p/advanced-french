@@ -5,11 +5,13 @@ include SpecHelper
 
 describe 'integration' do
   before do
-    load_lessons_exercises_and_users
+    load_lessons_and_exercises
+    create_user_foo
   end
 
   after do
     drop_all_collections
+    remove_user_foo
   end
 
   describe UserAnswerService do

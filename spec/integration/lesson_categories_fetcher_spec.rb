@@ -3,7 +3,8 @@ require_relative '../spec_helper'
 
 describe 'integration' do
   before do
-    load_lessons_exercises_and_users
+    load_lessons_and_exercises
+    create_user_foo
   end
 
   after do

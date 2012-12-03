@@ -6,11 +6,13 @@ include SpecHelper
 describe 'end to end', :type => :feature do
 
   before do
-    load_lessons_exercises_and_users
+    load_lessons_and_exercises
+    create_user_foo
   end
 
   after do
     drop_all_collections
+    remove_user_foo
   end
 
   describe 'home page' do
@@ -61,7 +63,7 @@ describe 'end to end', :type => :feature do
       visit "/exercises/conditionnel-ou-indicatif"
       fill_in 'attempt_10', :with => 'pourra'
       click_button 'Submit'
-      page.should have_text "Nous serons tous soulagés lorsqu'il pourra" 
+      page.should have_text "Nous serons tous soulagés lorsqu'il pourra"
       page.should have_css('i.icon-ok', :count => 1)
     end
   end
@@ -69,8 +71,8 @@ describe 'end to end', :type => :feature do
   describe 'exercise page for logged in user' do
     before do
       visit '/login'
-      fill_in 'email', :with => 'foo@bar.com' 
-      fill_in 'password', :with => 'pass' 
+      fill_in 'email', :with => 'foo@bar.com'
+      fill_in 'password', :with => 'testpass'
       click_button 'Login'
     end
 
@@ -92,7 +94,7 @@ describe 'end to end', :type => :feature do
       visit "/exercises/conditionnel-ou-indicatif"
       fill_in 'attempt_10', :with => 'pourra'
       click_button 'Submit'
-      page.should have_text "Nous serons tous soulagés lorsqu'il pourra" 
+      page.should have_text "Nous serons tous soulagés lorsqu'il pourra"
       page.should have_css('i.icon-ok', :count => 4)
     end
 
@@ -102,14 +104,14 @@ describe 'end to end', :type => :feature do
       page.should have_text "aurais"
       page.should have_text "souhaiterais"
     end
-  
+
     it 'saves correct answers in the db for logged in users' do
       visit "/exercises/conditionnel-ou-indicatif"
       fill_in 'attempt_9', :with => 'étaient'
       fill_in 'attempt_10', :with => 'pourra'
       click_button 'Submit'
       user_answer_service = UserAnswerService.new 'foo@bar.com'
-      exercise = ExercisesFetcher.new.find_exercise 'conditionnel-ou-indicatif' 
+      exercise = ExercisesFetcher.new.find_exercise 'conditionnel-ou-indicatif'
       user_answer_service.get_user_answers_for(exercise).should == [1,2,4,9,10]
     end
   end
@@ -117,8 +119,8 @@ describe 'end to end', :type => :feature do
   describe 'authentication with good credentials' do
     before do
       visit '/login'
-      fill_in 'email', :with => 'foo@bar.com' 
-      fill_in 'password', :with => 'pass' 
+      fill_in 'email', :with => 'foo@bar.com'
+      fill_in 'password', :with => 'testpass'
       click_button 'Login'
     end
 
@@ -142,8 +144,8 @@ describe 'end to end', :type => :feature do
   describe 'authentication with bad credentials' do
     it 'does not allow a non signed up user to login' do
       visit '/login'
-      fill_in 'email', :with => 'four@bar.com' 
-      fill_in 'password', :with => 'pass' 
+      fill_in 'email', :with => 'four@bar.com'
+      fill_in 'password', :with => 'pass'
       click_button 'Login'
       page.should have_text "Wrong email or password"
       page.should have_button "Login"

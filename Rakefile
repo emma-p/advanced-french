@@ -6,7 +6,9 @@ namespace "db" do
     password = ENV['password']
     raise 'please provide valid email and password' unless email && password
     raise 'user already created' if db["users"].find_one("email" => email)
-    db["users"].insert({"email" => email, "password" => password, "user_answers" => []})
+    salt = SecureRandom.base64
+    secure_password = Digest::SHA2.hexdigest(salt + password)
+    db["users"].insert({"email" => email, "salt" => salt, "password" => secure_password, "user_answers" => []})
     puts "user #{email} created successfully!"
   end
 

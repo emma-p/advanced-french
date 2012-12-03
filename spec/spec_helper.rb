@@ -9,14 +9,23 @@ Capybara.app = AdvancedFrench
 module SpecHelper
   TEST_LESSONS_FILE = 'spec/spec_data/lessons.json'
   TEST_EXERCISES_FOLDER = 'spec/spec_data/exercises/'
-  TEST_USERS_FILE = 'spec/spec_data/users.json'
 
-  def load_lessons_exercises_and_users
+  def create_user_foo
+    db = Connection.db
+    salt = SecureRandom.base64
+    secure_password = Digest::SHA2.hexdigest(salt + 'testpass')
+    db["users"].insert({"email" => 'foo@bar.com', "salt" => salt, "password" => secure_password, "user_answers" => [ { "exercise_id" => 1, "answered_questions" => [1,2,4] }, { "exercise_id" => 2, "answered_questions" => [3,5,6] } ] })
+  end
+
+  def remove_user_foo
+    db = Connection.db
+    db["users"].drop
+  end
+
+  def load_lessons_and_exercises
     db = Connection.db
 
     db["lessons"].insert JSON.parse(File.read TEST_LESSONS_FILE)
-
-    db["users"].insert JSON.parse(File.read TEST_USERS_FILE)
 
     Dir.glob(TEST_EXERCISES_FOLDER + "**/*.json").each do |f|
       db["exercises"].insert JSON.parse(File.read f)
@@ -25,7 +34,7 @@ module SpecHelper
 
   def drop_all_collections
     db = Connection.db
-    collections = ["lessons", "users", "exercises"]
+    collections = ["lessons", "exercises"]
     collections.each do |col|
       db[col].drop
     end
