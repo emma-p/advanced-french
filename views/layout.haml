@@ -8,22 +8,21 @@
   %body
     %script{:type => "text/javascript", :src => "../js/jquery.js"}
     %script{:type => "text/javascript", :src => "../js/lesson.js"}
+    .navbar
+      .navbar-inner
+        %a.brand.pull-left{:href => "/"} Advanced French
+        %ul.nav.pull-right
+          %li
+            %a{:href => "/lessons"} Lessons
+          %li
+            %a{:href => "/exercises"} Exercises 
+          - if session["email"]
+            %li.login-message Logged in as #{session["email"]}
+            %li 
+              %a{:href => "/signout"} Sign out
+          - else
+            %li
+              %a{:href => "/login"} Login
     .container
-      .navbar
-        .navbar-inner
-          %a.brand{:href => "/"} Advanced French
-          %ul.nav
-            %li
-              %a{:href => "/lessons"} Lessons
-            %li
-              %a{:href => "/exercises"} Exercises 
-            - if session["email"]
-              %li.login-message Logged in as #{session["email"]}
-              %li 
-                %a{:href => "/signout"} Sign out
-            - else
-              %li.login
-                %a{:href => "/login"} Login
       .row
-        .span8
-          =yield
+        =yield
