@@ -78,7 +78,7 @@ DEPENDENCIES
   haml
   i18n
   json
-  mongo
+  mongo (~> 1.7.1)
   pry
   rack
   rack-flash3

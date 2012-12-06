@@ -4,7 +4,7 @@ gem "json"
 gem "i18n"
 gem "active_support"
 gem "pry"
-gem "mongo"
+gem "mongo", '~> 1.7.1'
 gem "rack"
 gem "haml"
 gem "bson_ext"
