@@ -11,7 +11,7 @@ class ExercisesFetcher
     end
   end
 
-  def find_exercise name
-    get_exercises.find { |exercise| exercise.name == name }
+  def find_exercise id
+    get_exercises.find { |exercise| exercise.id == id.to_i }
   end
 end

@@ -1,8 +1,9 @@
-%h2 Lessons
-- @categories.each do |category|
-  %h3= category
-  - @lessons.each do |lesson|
-    - if category == lesson.category
-      %p
-        %i.icon-book
-        %a{ :href => lesson.url}= lesson.title
+.span8
+  %h2 Lessons
+  - @categories.each do |category|
+    %h3= category
+    - @lessons.each do |lesson|
+      - if category == lesson.category
+        %p
+          %i.icon-book
+          %a{ :href => lesson.url}= lesson.title

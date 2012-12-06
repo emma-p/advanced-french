@@ -1,5 +1,6 @@
-%h1 #{@exercise.title}
+%h2 #{@exercise.title}
 %form{method: "post"}
-  - questions_status.each do |hash|
-    %p= erb "question_#{hash[:status]}".to_sym, locals: {content: hash[:question].content, answer: hash[:question].answer, hint: hash[:question].hint, attempt_number: "attempt_#{hash[:question].number}"}
+  %ol
+    - @questions.each do |question|
+      %li= erb "question_#{question.status}".to_sym, locals: {question: question}
   %input{type: "submit", value:"Submit"}

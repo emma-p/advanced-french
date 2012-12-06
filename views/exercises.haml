@@ -2,4 +2,4 @@
 - @exercises.each do |exercise|
   %p 
     %i.icon-pencil
-    %a{:href => exercise.url}= exercise.title
+    %a{:href => "exercises/#{exercise.id}"}= exercise.title

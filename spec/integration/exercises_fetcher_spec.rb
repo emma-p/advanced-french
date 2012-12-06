@@ -16,12 +16,12 @@ describe 'integration' do
   describe ExercisesFetcher do
     
     it 'returns all the exercises from the database as Exercise objects with Question objects'do
-      exercises_titles = subject.get_exercises.map {|exercise| exercise.title}
-      exercises_titles.should == ["Conditionnel ou indicatif?", "Verbes difficiles du premier groupe"]
+      exercises_ids = subject.get_exercises.map {|exercise| exercise.id}
+      exercises_ids.should == [1, 2]
     end
 
     it 'finds an exercise by its parameterized name' do
-      subject.find_exercise("conditionnel-ou-indicatif").title.should == "Conditionnel ou indicatif?"
+      subject.find_exercise("1").title.should == "Conditionnel ou indicatif?"
     end    
   end
 end

@@ -6,8 +6,6 @@ class AdvancedFrench < Sinatra::Base
   set :session_secret, "My session secret"
   use Rack::Flash
 
-  helpers ExercisePresenter
-
   get '/' do
     haml :index
   end
@@ -31,26 +29,40 @@ class AdvancedFrench < Sinatra::Base
     haml :exercises
   end
 
-  get '/exercises/:exercise_title' do
-    @exercise = ExercisesFetcher.new.find_exercise params[:exercise_title]
+  get '/exercises/:exercise_id' do
+    @exercise = ExercisesFetcher.new.find_exercise params[:exercise_id]
     @questions = @exercise.questions
-    if logged_in
-      user_answer_service = UserAnswerService.new session[:email]
-      @answered_questions = user_answer_service.get_user_answers_for @exercise
+
+    already_answered = if logged_in
+                         uas = answer_service
+                         uas.get_user_answers_for @exercise
+                       else
+                         []
+                       end
+
+    @questions.each do |q|
+      q.status = case session["answer_#{q.number}"]
+                 when q.answer ; "answered"
+                 when nil, ""  ; "unanswered"
+                 else          ; "misanswered"
+                 end
+
+      q.status = "answered" if already_answered.include?(q.number)
     end
+
     haml :exercise
   end
 
-  post '/exercises/:exercise_title' do
-    @exercise = ExercisesFetcher.new.find_exercise params[:exercise_title]
+  post '/exercises/:exercise_id' do
+    @exercise = ExercisesFetcher.new.find_exercise params[:exercise_id]
     @questions = @exercise.questions
-    answers = params.select{|k,v| k =~ /attempt_/}
+    answers = params.select{|k,v| k =~ /answer_/}
     session.merge!(answers)
     if logged_in
-      user_answer_service = UserAnswerService.new session[:email]
-      user_answer_service.save_user_answers(@exercise, answers_to_save(questions_status))
+      uas = answer_service
+      uas.save_right_answers @exercise, answers
     end
-    redirect to("/exercises/#{params[:exercise_title]}")
+    redirect to("/exercises/#{params[:exercise_id]}")
   end
 
   get '/login' do
@@ -63,6 +75,7 @@ class AdvancedFrench < Sinatra::Base
 
   post '/login' do
     if Bouncer.user_can_authenticate? params["email"], params["password"]
+      session.clear
       session["email"] = params["email"]
       redirect to("/")
     else
@@ -79,7 +92,11 @@ class AdvancedFrench < Sinatra::Base
   private
 
   def logged_in
-    !!session[:email]
+    !!session["email"]
+  end
+
+  def answer_service
+    UserAnswerService.new session["email"]
   end
 
 end

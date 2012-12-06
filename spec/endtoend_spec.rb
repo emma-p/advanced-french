@@ -25,14 +25,14 @@ describe 'end to end', :type => :feature do
   describe 'lessons page' do
     it 'displays all the lessons' do
       visit '/lessons'
-      page.should have_text "Adverbes" #title
-      page.should have_text "Grammaire" #category
+      page.should have_text "Adverbs" #title
+      page.should have_text "Grammar" #category
     end
   end
 
   describe 'lesson page' do
     it 'displays the specific lesson required in the lessons page' do
-      visit "/lessons/adverbes"
+      visit "/lessons/adverbs"
       page.should have_text "Qu'est-ce qu'un adverbe de manière?"
     end
   end
@@ -45,23 +45,24 @@ describe 'end to end', :type => :feature do
   end
 
   describe 'exercise page for unknown user' do
+    before do
+      visit "/exercises/1"
+    end
+
     it 'displays the specific exercise required in the exercises page' do
-      visit "/exercises/conditionnel-ou-indicatif"
       page.should have_text "Conditionnel ou indicatif?"
       page.should have_text "Marianne a affirmé qu'elle viendrait"
     end
 
     it 'returns an empty question box and x icon when the user gives a wrong answer' do
-      visit "/exercises/conditionnel-ou-indicatif"
-      fill_in 'attempt_3', :with => 'fours'
+      fill_in 'answer_3', :with => 'fours'
       click_button 'Submit'
       page.should have_no_text 'Vous verrez si vous pouvez assister'
       page.should have_css('i.icon-remove', :count => 1)
     end
 
     it 'returns the answer when the user gives a right answer' do
-      visit "/exercises/conditionnel-ou-indicatif"
-      fill_in 'attempt_10', :with => 'pourra'
+      fill_in 'answer_10', :with => 'pourra'
       click_button 'Submit'
       page.should have_text "Nous serons tous soulagés lorsqu'il pourra"
       page.should have_css('i.icon-ok', :count => 1)
@@ -74,44 +75,41 @@ describe 'end to end', :type => :feature do
       fill_in 'email', :with => 'foo@bar.com'
       fill_in 'password', :with => 'testpass'
       click_button 'Login'
+      visit "/exercises/1"
     end
 
     it 'displays the specific exercise required in the exercises page' do
-      visit "/exercises/conditionnel-ou-indicatif"
       page.should have_text "Conditionnel ou indicatif?"
       page.should have_text "Marianne a affirmé qu'elle viendrait"
     end
 
     it 'returns an empty question box and x icon when the user gives a wrong answer' do
-      visit "/exercises/conditionnel-ou-indicatif"
-      fill_in 'attempt_3', :with => 'fours'
+      #real answer : verrez
+      fill_in 'answer_3', :with => 'fours'
       click_button 'Submit'
       page.should have_no_text 'Vous verrez si vous pouvez assister'
       page.should have_css('i.icon-remove', :count => 1)
     end
 
-    it 'returns the answer when the user gives a right answer' do
-      visit "/exercises/conditionnel-ou-indicatif"
-      fill_in 'attempt_10', :with => 'pourra'
+    it 'returns the answer when the user gives a right answer', current: true do
+      fill_in 'answer_10', :with => 'pourra'
       click_button 'Submit'
       page.should have_text "Nous serons tous soulagés lorsqu'il pourra"
       page.should have_css('i.icon-ok', :count => 4)
     end
 
     it 'displays the questions already answered by a logged in user' do
-      visit "/exercises/conditionnel-ou-indicatif"
       page.should have_text "aurait fini"
       page.should have_text "aurais"
       page.should have_text "souhaiterais"
     end
 
     it 'saves correct answers in the db for logged in users' do
-      visit "/exercises/conditionnel-ou-indicatif"
-      fill_in 'attempt_9', :with => 'étaient'
-      fill_in 'attempt_10', :with => 'pourra'
+      fill_in 'answer_9', :with => 'étaient'
+      fill_in 'answer_10', :with => 'pourra'
       click_button 'Submit'
       user_answer_service = UserAnswerService.new 'foo@bar.com'
-      exercise = ExercisesFetcher.new.find_exercise 'conditionnel-ou-indicatif'
+      exercise = ExercisesFetcher.new.find_exercise '1'
       user_answer_service.get_user_answers_for(exercise).should == [1,2,4,9,10]
     end
   end
