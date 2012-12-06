@@ -1,0 +1,66 @@
+{ "id": 4,
+  "title": "Hypothesis : fill in the blanks using the appropriate tense and mood",
+  "questions":
+  [
+    {
+      "number": 1,
+      "content": "Le taux de chômage restera haut si les personnes en recherche d'emploi ne __ pas se former correctement.", 
+      "answer": "peuvent", 
+      "hint": "pouvoir"
+    }, 
+    {
+      "number": 2,
+      "content": "Tu __ y aller si tu n'avais pas fini le travail si tard.", 
+      "answer": "aurais pu", 
+      "hint": "pouvoir"
+    }, 
+    {
+      "number": 3,
+      "content": "Si mon rendez-vous ne vient pas, je __ plus tôt que prévu.", 
+      "answer": "partirai", 
+      "hint": "partir"
+    }, 
+    {
+      "number": 4,
+      "content": "Si tu le voulais, tu __ être très brillant.", 
+      "answer": "pourrais", 
+      "hint": "pouvoir"
+    }, 
+    {
+      "number": 5,
+      "content": "Je te donnerais volontiers des conseils si j'__ plus d'expérience dans ce domaine.", 
+      "answer": "avais", 
+      "hint": "avoir"
+    }, 
+    {
+      "number": 6,
+      "content": "S'il ne renonce pas à cet emploi, je __ y renoncer à sa place.", 
+      "answer": "devrai", 
+      "hint": "devoir"
+    }, 
+    {
+      "number": 7,
+      "content": "Je crois qu'il __ cette offre s'il avait dû s'éloigner de Paris.", 
+      "answer": "n'aurait pas accepté", 
+      "hint": "ne pas accepter"
+    }, 
+    {
+      "number": 8,
+      "content": "Si l'entreprise répond au cahier des charges, elle __ la norme RATCHAT.", 
+      "answer": "recevra", 
+      "hint": "recevoir"
+    }, 
+    {
+      "number": 9,
+      "content": "Si le marché avait le même taux de croissance que l'année dernière, nous __ plus en équipements.", 
+      "answer": "investirions", 
+      "hint": "investir"
+    }, 
+    {
+      "number": 10, 
+      "content": "Nous serions venus plus tôt si vous nous __ que c'était votre dernier jour de vacances ici!", 
+      "answer": "aviez dit", 
+      "hint": "dire"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 { "id": 1, 
-  "title": "Conditionnel ou indicatif?",
+  "title": "Conditional mood : fill in the blanks using the appropriate mood (conditional or indicative)",
   "questions":
   [ 
     {
@@ -22,7 +22,7 @@
     }, 
     {
       "number": 4,
-      "content": "Je __ avoir plus d'nformations sur vos prestations.", 
+      "content": "Je __ avoir plus d'informations sur vos prestations.", 
       "answer": "souhaiterais", 
       "hint": "souhaiter"
     }, 

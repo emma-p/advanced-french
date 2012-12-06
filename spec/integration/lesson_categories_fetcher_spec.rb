@@ -17,13 +17,13 @@ describe 'integration' do
     describe '#get_lessons' do
       it 'returns the lessons from the db' do
         lessons = subject.get_lessons.map{|lesson| lesson.title}
-        lessons.should =~ ["Adverbes", "Conditionnel", "Mots à ne pas confondre", "Accents sur la lettre e", "10 astuces pour écrire de bons courriels"]
+        lessons.should =~ ["Adverbs", "Some rules about accents"]
       end
     end
 
     describe 'get_categories' do
       it 'returns the categories and the corresponding lessons from the db' do
-        subject.get_categories.should =~ ["Grammaire", "Rédaction", "Orthographe"]
+        subject.get_categories.should =~ ["Grammar", "Spelling"]
       end
     end
   end

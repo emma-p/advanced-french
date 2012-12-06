@@ -6,7 +6,7 @@ class LessonsFetcher
   end
 
   def get_categories
-    categories = get_lessons.group_by{ |cat| cat["category"] }
+    categories = get_lessons.group_by{ |lesson| lesson.category}
     categories.map{ |category, lessons| category }
   end
 
