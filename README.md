@@ -1,7 +1,7 @@
 advanced-french
 ===============
 
-> This application is my first programming project. I use it to learn Ruby and the basics of web application development. 
+> This application was my first programming project. I used it to learn Ruby and the basics of web application development. 
 
 > The site displays lessons and exercises for advanced French learners.
 > It is inspired by another website I was using to give my students online homework when I was teaching French.
@@ -21,17 +21,3 @@ Try it
 ------
 
 > Go to [the website](https://advanced-french.herokuapp.com/).
-
-> Log in using email: guest@guest.com and password: guest
-
-> Need help with answers? Here is the list of the correct answers for the "Conditional mood" exercise:
-> 1. aurait fini
-> 2. aurais
-> 3. verrez
-> 4. souhaiterais
-> 5. serait
-> 6. aurai
-> 7. arriverai
-> 8. aimerais
-> 9. étaient
-> 10. pourra
